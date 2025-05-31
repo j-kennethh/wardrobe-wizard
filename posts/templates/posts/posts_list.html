@@ -1,0 +1,33 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Posts List
+{% endblock %}
+
+{% block content %}
+    <section>
+    <h1>Closet</h1>
+
+    {% for post in posts %}
+        <article>
+            <img 
+                class="image"
+                src="{{ post.image.url }}"
+                height = 287 
+                width = 287
+                alt="{{ post.title }}"
+            />
+            <h2>
+                <a href="{% url 'posts:page' slug=post.slug %}">
+                    {{ post.title }}
+                </a>
+            </h2>
+            <p>{{ post.date }} by {{ post.author }}</p>
+            <p>{{ post.category }}</p>
+            
+        </article>
+    {% endfor %}
+    </section>
+    
+{% endblock %}
+
