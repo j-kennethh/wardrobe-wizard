@@ -1,0 +1,34 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block content %}
+    <h1>Home</h1>
+    <h1>Welcome back, {{ user }}!</h1>
+    <p>Go to <a href="{% url 'posts:list' %}"> Closet</a></p>
+    <p><a href="{% url 'posts:new-post' %}">Add</a> a new clothing item</p>
+    <p>Check out my <a href="/about">Statistics</a> page.</p>
+    <p>Check out my <a href="/about">LookBook</a> page.</p>
+    <p>Access the <a href="/about">AI Stylist</a>!</p>
+    <p>Check out the <a href="/about">Community Lookbooks</a>!</p>
+
+{% endblock %}
+
+
+
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <h1>Home</h1>
+    <p>Check out my <a href="/about">About</a> page.</p>
+</body>
+</html>
