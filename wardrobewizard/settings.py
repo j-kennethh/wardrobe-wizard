@@ -28,10 +28,10 @@ DEBUG = True
 ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
-    'rnvat-49-245-81-72.a.free.pinggy.link',]
+    'rndai-49-245-81-72.a.free.pinggy.link',]
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://rnvat-49-245-81-72.a.free.pinggy.link",
+    "https://rndai-49-245-81-72.a.free.pinggy.link",
 ]
 
 # Application definition
@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'posts',
     'users',
+    'taggit',
 ]
 
 MIDDLEWARE = [

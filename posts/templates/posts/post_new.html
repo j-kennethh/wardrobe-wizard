@@ -10,14 +10,15 @@
         <form class="form-with-validation" action="{% url 'posts:new-post'  %}" height = 287 width = 287 method="post" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form }} 
+            
             {% comment %} <p>Name: {{ form.title }}</p>
             <p>Category: {{ form.category }}</p>
             <p>Slug: {{ form.slug }}</p>
-             {% endcomment %}
-            {% comment %} the input below allows us to take picture, but need to link it to the new-post object {% endcomment %}
-            {% comment %} <input type="file" accept="media/*" capture="environment" id="{{ form.image }}"> {% endcomment %}
+            
+            the input below allows us to take picture, but need to link it to the new-post object 
+            <input type="file" accept="media/*" capture="environment" id="{{ form.image }}"> {% endcomment %}
             <button class="form-submit"> Add Item </button>
-            {% comment %} <button type="submit">Submit</button> {% endcomment %}
+            
         </form>
     </section>
     
