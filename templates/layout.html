@@ -35,10 +35,13 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'posts:new-post' %}">Add New Item</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'users:logout' %}">Log Out</a>
-                    </li>
                 </ul>
+                <ul class="navbar-nav ms-auto">
+                    <form action="{% url 'users:logout' %}" method="post"> 
+                        {% csrf_token %}
+                        <button class="nav-link" aria-label="User Logout" title="User Logout">Log Out</button>
+                    </form>
+                </ul>    
                     {% else %}
                 </ul>
                 <ul class="navbar-nav ms-auto">
