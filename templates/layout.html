@@ -23,17 +23,17 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/">Home</a>
+                        <a class="nav-link {% if request.path == '/' %}active{% endif %}" href="/">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/about">About</a>
+                        <a class="nav-link {% if request.path == '/about/' %}active{% endif %}" href="/about">About</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'posts:list' %}">Closet</a>
+                        <a class="nav-link {% if request.path == '/posts/' %}active{% endif %}" href="{% url 'posts:list' %}">Closet</a>
                     </li>
                     {% if user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'posts:new-post' %}">Add New Item</a>
+                        <a class="nav-link {% if request.path == '/posts/new-post/' %}active{% endif %}" href="{% url 'posts:new-post' %}">Add New Item</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav ms-auto">
@@ -56,34 +56,6 @@
             </div>
         </div>
     </nav>
-
-    <!-- <nav> -->
-        <!-- <a href="/">
-            <span role="img" aria-label="Home" title="Home">🏠</span>
-        </a> |  -->
-        <!-- <a href="/about">
-            <span role="img" aria-label="About" title="About">ℹ️</span>
-        </a> |  -->
-        <!-- <a href="{% url 'posts:list' %}">
-            <span role="img" aria-label="Closet" title="Closet">🚪</span>
-        </a> |  -->
-        <!-- {% if user.is_authenticated %} -->
-            <!-- <a href="{% url 'posts:new-post' %}">
-                <span role="img" aria-label="Add New Item" title="Add New Item">🆕</span>
-            </a> | -->
-            <!-- <form class="logout" action="{% url 'users:logout' %}" method="post">
-                {% csrf_token %}
-                <button class="logout-button" aria-label="User Logout" title="User Logout">👋</button>
-            </form> -->
-        <!-- {% else %} -->
-            <!-- <a href="{% url 'users:register' %}">
-                <span role="img" aria-label="User Registration" title="User Registration">Sign Up</span>
-            </a> |  -->
-            <!-- <a href="{% url 'users:login' %}">
-                <span role="img" aria-label="User Login" title="User Login">Log In</span>
-            </a> |     -->
-        <!-- {% endif %} -->
-    <!-- </nav> -->
     <main>
         {% block content %}
         {% endblock %}
