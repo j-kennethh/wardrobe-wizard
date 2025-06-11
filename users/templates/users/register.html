@@ -1,17 +1,41 @@
 {% extends 'layout.html' %}
 
 {% block title %}
-    Register a New User
+    Wardrobe Wizard | Register
 {% endblock %}
 
 {% block content %}
-    <section>
-    <h1>Register a New User</h1>
-    <form  class="form-with-validation" action="/users/register/" method="post">
-        {% csrf_token %}
-        {{ form }}
-        <button class="form-submit">Submit</button>
-    </form>
-    </section>
-    
+    <div class="container-md">
+        <div class="row justify-content-center">
+            <div class="col-md-5">
+                <h1 class="mt-5 mb-5 text-center">Register</h1>
+                {% if form.errors %}
+                    <div class="alert alert-danger mb-3">
+                        {% for field, errors in form.errors.items %}
+                            {% for error in errors %}
+                                {{ error }}<br>
+                            {% endfor %}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                <form method="post" action="/users/register/">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="{{ form.username.id_for_label }}" class="form-label">Username</label>
+                        <input type="text" class="form-control" id="{{ form.username.id_for_label }}" name="{{ form.username.html_name }}" required autocomplete="off" autofocus>
+                    </div>
+                    <div class="mb-3">
+                        <label for="{{ form.password1.id_for_label }}" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="{{ form.password1.id_for_label }}" name="{{ form.password1.html_name }}" required>
+                        <div class="form-text">At least 8 characters</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="{{ form.password2.id_for_label }}" class="form-label">Confirm Password</label>
+                        <input type="password" class="form-control" id="{{ form.password2.id_for_label }}" name="{{ form.password2.html_name }}" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Register</button>
+                </form>
+            </div>
+        </div>
+    </div>
 {% endblock %}

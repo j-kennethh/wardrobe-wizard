@@ -1,20 +1,35 @@
 {% extends 'layout.html' %}
 
 {% block title %}
-    User Login
+    Wardrobe Wizard | Log In
 {% endblock %}
 
 {% block content %}
-    <section>
-    <h1>User Login</h1>
-    <form  class="form-with-validation" action="/users/login/" method="post">
-        {% csrf_token %}
-        {{ form }}
-        {% if request.GET.next %}
-            <input type="hidden" name = "next" value={{ request.GET.next }} />
-        {% endif %}
-        <button class="form-submit">Submit</button>
-    </form>
-    </section>
-    
+    <div class="container-md">
+        <div class="row justify-content-center">
+            <div class="col-md-5">
+                <h1 class="mt-5 mb-5 text-center">Login</h1>
+                {% if form.errors %}
+                    <div class="alert alert-danger mb-3">
+                        Invalid username or password. Please try again.
+                    </div>
+                {% endif %}
+                <form action="/users/login/" method="post">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="{{ form.username.id_for_label }}" class="form-label">Username</label>
+                        <input type="text" class="form-control" id="{{ form.username.id_for_label }}" name="{{ form.username.html_name }}" required autocomplete="off" autofocus>
+                    </div>
+                    <div class="mb-3">
+                        <label for="{{ form.password.id_for_label }}" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="{{ form.password.id_for_label }}" name="{{ form.password.html_name }}" required>
+                    </div>
+                    {% if request.GET.next %}
+                        <input type="hidden" name="next" value="{{ request.GET.next }}">
+                    {% endif %}
+                    <button type="submit" class="btn btn-primary w-100">Log In</button>
+                </form>
+            </div>
+        </div>
+    </div>
 {% endblock %}
