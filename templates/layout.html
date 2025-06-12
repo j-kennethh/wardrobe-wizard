@@ -28,10 +28,10 @@
                     <li class="nav-item">
                         <a class="nav-link {% if request.path == '/about/' %}active{% endif %}" href="/about">About</a>
                     </li>
+                    {% if user.is_authenticated %}
                     <li class="nav-item">
                         <a class="nav-link {% if request.path == '/posts/' %}active{% endif %}" href="{% url 'posts:list' %}">Closet</a>
                     </li>
-                    {% if user.is_authenticated %}
                     <li class="nav-item">
                         <a class="nav-link {% if request.path == '/posts/new-post/' %}active{% endif %}" href="{% url 'posts:new-post' %}">Add New Item</a>
                     </li>
