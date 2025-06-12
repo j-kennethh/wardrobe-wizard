@@ -1,12 +1,12 @@
 {% extends 'layout.html' %}
 
 {% block title %}
-    New Item
+    Wardrobe Wizard | New Item
 {% endblock %}
 
 {% block content %}
-    <section>
-        <h1>New Item</h1>
+    <div class="container-md">
+        <h1 class="mt-5 mb-5">New Item</h1>
         <form class="form-with-validation" action="{% url 'posts:new-post'  %}" height = 287 width = 287 method="post" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form }} 
@@ -20,9 +20,5 @@
             <button class="form-submit"> Add Item </button>
             
         </form>
-    </section>
-    
-   
-    
+    </div>
 {% endblock %}
-
