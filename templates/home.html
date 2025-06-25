@@ -7,8 +7,8 @@
 {% block content %}
     <div class="container-md">
         <h1 class="mt-5 mb-5">Welcome back, {{ user }}!</h1>
-        <p class="mb-3">Go to <a href="{% url 'posts:list' %}"> Closet</a></p>
-        <p class="mb-3"><a href="{% url 'posts:new-post' %}">Add</a> a new clothing item</p>
+        <p class="mb-3">Go to <a href="{% url 'closet:list' %}"> Closet</a></p>
+        <p class="mb-3"><a href="{% url 'closet:new-item' %}">Add</a> a new clothing item</p>
         <p class="mb-3">Check out my <a href="/about">Statistics</a> page!</p>
         <p class="mb-3">Check out my <a href="/about">LookBook</a> page!</p>
         <p class="mb-3">Access the <a href="/about">AI Stylist</a>!</p>

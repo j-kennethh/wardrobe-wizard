@@ -1,0 +1,66 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Wardrobe Wizard | Closet
+{% endblock %}
+
+{% block content %}
+    <div class="container-md">
+        <h1 class="mt-5 mb-5">Closet</h1>
+    
+        {% comment %} Dropdown filter menu for tags {% endcomment %}
+        <form method="get" action="">
+            <label for="tag">Filter by Tag:</label>
+            <select name="tag" id="tag" onchange="this.form.submit()">
+                <option value="">-- All Tags --</option>
+                {% for tag_option in tags %}
+                    <option value="{{ tag_option.name }}" {% if tag_option.name == selected_tag %}selected{% endif %}>
+                        {{ tag_option.name }}
+                    </option>
+                {% endfor %}
+            </select>
+
+            {% if selected_tag %}
+                <a href="{% url 'closet:list' %}" style="
+                    display: inline-block;
+                    padding: 6px 12px;
+                    margin-left: 10px;
+                    background-color: #f44336;
+                    color: white;
+                    text-decoration: none;
+                    border-radius: 4px;
+                    font-size: 14px;
+                ">Clear filter</a>
+            {% endif %}
+        </form>
+
+        {% comment %} populating items by tags {% endcomment %}
+        {% for item in items %}
+            <article>
+                <img 
+                    class="image"
+                    src="{{ item.image.url }}"
+                    height = 287 
+                    width = 287
+                    alt="{{ item.title }}"
+                />
+            <h2>
+                <a href="{% url 'closet:page' item.pk %}">
+                    {{ item.title }}
+                </a>
+            </h2>
+            <p>{{ item.date }} by {{ item.author }}</p>
+            <p>{{ item.category }}</p>
+            <p>Tags:
+                {% for tag in item.tags.all %}
+                    <span>{{ tag }}</span>{% if not forloop.last %}, {% endif %}
+                {% endfor %}
+            </p>
+            
+                
+            </article>
+        {% empty %}
+            <p>No items found for this tag.</p>
+        {% endfor %}
+    </div>
+{% endblock %}

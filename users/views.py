@@ -9,7 +9,7 @@ def register_view(request):
         form = UserCreationForm(request.POST) 
         if form.is_valid(): 
             login(request, form.save())
-            return redirect("posts:list")
+            return redirect("closet:list")
     else:
         form = UserCreationForm()
     return render(request, "users/register.html", { "form": form })
@@ -30,4 +30,4 @@ def login_view(request):
 def logout_view(request):
     if request.method == "POST":
         logout(request)
-        return redirect("posts:list")
+        return redirect("closet:list")

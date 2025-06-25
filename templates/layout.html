@@ -30,10 +30,10 @@
                     </li>
                     {% if user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link {% if request.path == '/posts/' %}active{% endif %}" href="{% url 'posts:list' %}">Closet</a>
+                        <a class="nav-link {% if request.path == '/closet/' %}active{% endif %}" href="{% url 'closet:list' %}">Closet</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {% if request.path == '/posts/new-post/' %}active{% endif %}" href="{% url 'posts:new-post' %}">Add New Item</a>
+                        <a class="nav-link {% if request.path == '/closet/new-item/' %}active{% endif %}" href="{% url 'closet:new-item' %}">Add New Item</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav ms-auto">
