@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'closet',
+    'fitting_room',
     'users',
     'taggit',
 ]

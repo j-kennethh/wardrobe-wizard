@@ -49,7 +49,7 @@
                     {{ item.title }}
                 </a>
             </h2>
-            <p>{{ item.date }} by {{ item.author }}</p>
+            <p>{{ item.date }} by {{ item.user }}</p>
             <p>{{ item.category }}</p>
             <p>Tags:
                 {% for tag in item.tags.all %}

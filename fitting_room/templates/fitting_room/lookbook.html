@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Your Lookbook</h2>
+    
+    <div class="row">
+        {% for look in looks %}
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <img src="{{ look.image.url }}" class="card-img-top" alt="{{ look.title }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ look.title }}</h5>
+                    <p class="card-text text-muted">Created {{ look.created_at|date:"F j, Y" }}</p>
+                    <div class="d-flex justify-content-between">
+                        <a href="#" class="btn btn-sm btn-outline-primary">Edit</a>
+                        <form method="post" action="{% url 'fitting_room:delete_look' look.id %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <div class="alert alert-info">
+                You haven't created any looks yet. Visit the <a href="{% url 'fitting_room:fitting_room' %}">Virtual Fitting Room</a> to get started.
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
