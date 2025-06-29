@@ -16,4 +16,7 @@ class Post(models.Model):
     def __str__(self):
         return self.title
 
-
+class Outfit(models.Model):
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    items = models.ManyToManyField(Post)
+    date = models.DateTimeField(auto_now_add=True) 

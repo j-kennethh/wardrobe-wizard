@@ -5,6 +5,8 @@ from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from . import forms
 from taggit.models import Tag
+import json
+from .models import Outfit
 # Create your views here.
 
 @login_required
