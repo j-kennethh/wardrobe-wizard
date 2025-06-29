@@ -1,3 +1,5 @@
+let selectedItems = [];
+
 function allowDrop(ev) {
     ev.preventDefault();
 }
@@ -10,7 +12,11 @@ function drop(ev) {
     ev.preventDefault();
     const data = ev.dataTransfer.getData("text");
     const draggedItem = document.getElementById(data);
-    ev.target.appendChild(draggedItem.cloneNode(true));
+    
+    const clone = draggedItem.cloneNode(true);
+    document.getElementById("canvas").appendChild(clone);
+
+    selectedItems.push(data);
 }
 
 document.querySelectorAll(".draggable-item").forEach(el => {
