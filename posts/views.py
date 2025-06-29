@@ -46,3 +46,16 @@ def post_new(request):
         form = forms.CreatePost()
     return render(request, 'posts/post_new.html', {'form': form})
     
+@login_required
+def save_outfit(request):
+    if request.method == "POST":
+        item_ids = json.loads(request.POST.get("item_ids", "[]"))
+        outfit = Outfit.objects.create(user=request.user)
+        for item_id in item_ids:
+            try:
+                item = Post.objects.get(id=item.id.replace("item-", ""))
+                outfit.items.add(item)
+            except Post.DoesNotExist:
+                continue
+        outfit.save()
+    return redirect('posts:list')
