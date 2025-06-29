@@ -64,9 +64,9 @@ To develop a **smart wardrobe management application** that:
 ## 🗓️ Project Timeline
 
 ### Mid-June Goals
-- Set up backend–frontend integration
-- Build basic Virtual Fitting Room
-- Create foundational wardrobe database
+- Set up backend–frontend integration (in progress)
+- Build basic Virtual Fitting Room (done)
+- Create foundational wardrobe database (done)
 
 ### Mid-July Goals
 - Enable outfit overlay in Virtual Fitting Room
@@ -79,7 +79,7 @@ To develop a **smart wardrobe management application** that:
 
 - **Frontend:** Django Templates + Bootstrap  
 - **Backend:** Django  
-- **Database:** PostgreSQL (initially using SQLite for development)
+- **Database:** PostgreSQL
 
 ---
 
