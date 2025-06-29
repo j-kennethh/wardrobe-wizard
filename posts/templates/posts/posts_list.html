@@ -38,7 +38,9 @@
         {% for post in posts %}
             <article>
                 <img 
-                    class="image"
+                    class="image draggable-item"
+                    id="{{ post.id }}"
+                    draggable="true"
                     src="{{ post.image.url }}"
                     height = 287 
                     width = 287
@@ -62,5 +64,13 @@
         {% empty %}
             <p>No posts found for this tag.</p>
         {% endfor %}
+
+        <h1 class="mt-5 mb-5">Outfit Builder</h1>
+        <div class="border p-5" id="canvas" ondrop="drop(event)" ondragover="allowDrop(event)">
+
+        </div>
     </div>
+
+    {% load static %}
+    <script src="{% static 'js/outfit-builder.js' %}"></script>
 {% endblock %}
