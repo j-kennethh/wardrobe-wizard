@@ -4,21 +4,46 @@ document.addEventListener('DOMContentLoaded', function() {
     let zIndexCounter = 1;
     let currentRotation = 0;
     let currentScale = 1;
-    
+    console.log("DOM fully loaded - script.js executing");
+
     // Initialize interact.js on the canvas
     interact(canvas).dropzone({
         accept: '.draggable-item',
         ondrop: function(event) {
-            // This will handle dropping items (if needed)
+            // handle dropping items (if needed)
         }
     });
     
-    // Handle clothing selection from modal
-    document.getElementById('add-selected-items').addEventListener("click", function(e) {
-        console.log("Add selected items button clicked"); // test
+    // modal initialization to fix accessibility warning
+    const clothingModal = document.getElementById('clothingSelectorModal');
+    if (clothingModal) {
+        // Remove aria-hidden and set proper attributes
+        clothingModal.removeAttribute('aria-hidden');
+        clothingModal.setAttribute('aria-modal', 'true');
+        
+        // Set up modal event listeners for proper focus management
+        clothingModal.addEventListener('shown.bs.modal', function() {
+            // Focus on first checkbox when modal opens
+            const firstCheckbox = clothingModal.querySelector('input[type="checkbox"]');
+            if (firstCheckbox) {
+                firstCheckbox.focus();
+            }
+        });
+
+        clothingModal.addEventListener('hidden.bs.modal', function() {
+            // Return focus to the "Select Clothing Items" button when modal closes
+            document.querySelector('[data-bs-target="#clothingSelectorModal"]').focus();
+        });
+    }
+
+    //handle clothing selection from modal
+    document.getElementById('add-selected-items').addEventListener('click', function(e) {
+        e.preventDefault();
+        console.log("Add selected items button clicked");
         
         const checkboxes = document.querySelectorAll('#clothing-selection-form input[name="items"]:checked');
-        
+        console.log("Found checkboxes:", checkboxes.length);
+
         if (checkboxes.length === 0) {
             alert("Please select at least one item");
             return;
@@ -31,6 +56,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const itemImg = card.querySelector('img').src;
                 const itemTitle = card.querySelector('.form-check-label').textContent.trim();
                 
+                console.log("Adding item:", itemId, itemTitle);
                 addItemToCanvas(itemId, itemImg, itemTitle);
                 
                 // Uncheck the checkbox after adding
@@ -39,7 +65,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.error("Error processing checkbox:", error);
             }
         });
-        
+
         // Close the modal
         const modal = bootstrap.Modal.getInstance(document.getElementById('clothingSelectorModal'));
         modal.hide();
@@ -47,6 +73,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Add an item to the canvas
     function addItemToCanvas(itemId, itemImg, itemTitle) {
+        console.log("Creating item element with:", {
+            itemId, itemImg, itemTitle
+        });
         const itemElement = document.createElement('div');
         itemElement.className = 'draggable-item';
         itemElement.dataset.itemId = itemId;
@@ -99,6 +128,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Set up interact.js for an item
     function setupInteract(element) {
+        console.log("Setting up interact for element:", element);
         interact(element)
             .draggable({
                 inertia: true,

@@ -9,7 +9,7 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-body">
-                    <div id="fitting-room-canvas" style="width: 100%; height: 600px; background-color: #f8f9fa; position: relative; overflow: hidden;">
+                    <div id="fitting-room-canvas" style="width: 100%; height: 600px; background-color: #f8f9fa; position: relative; overflow: hidden; border: 1px dashed #ccc;">
                         <!-- Items will be placed here dynamically -->
                     </div>
                 </div>
@@ -59,7 +59,7 @@
 
 <!-- Include the clothing selector modal -->
 {% comment %} {% include 'fitting_room/includes/clothing_selector_modal.html' %} {% endcomment %}
-<div class="modal fade" id="clothingSelectorModal" tabindex="-1" aria-labelledby="clothingSelectorModalLabel" aria-hidden="true">
+<div class="modal fade" id="clothingSelectorModal" tabindex="-1" aria-labelledby="clothingSelectorModalLabel" aria-model="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -100,7 +100,7 @@
 {% endblock %}
 
 {% block extra_js %}
-<script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
+<script src="{% static 'fitting_room/js/interact.min.js' %}"></script>
 <script src="{% static 'fitting_room/js/script.js' %}"></script>
 {% endblock %}
 

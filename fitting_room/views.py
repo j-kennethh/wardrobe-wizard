@@ -51,7 +51,7 @@ def fitting_room(request):
                 except ClothingItem.DoesNotExist:
                     continue
             
-            #the Look.save() method will handle the image composition automatically
+            #the look.save() method will handle the image composition automatically
             return redirect('fitting_room:lookbook')
     else:
         form = LookForm()
