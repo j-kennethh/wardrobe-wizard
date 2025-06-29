@@ -22,7 +22,10 @@ def fitting_room(request):
             # Get the canvas data from the request
             canvas_data = json.loads(request.POST.get('canvas_data', '{}'))
             
-            # Create a blank image for the look
+            # first save the blank image
+            look.save()
+            
+            """# Create a blank image for the look
             img = Image.new('RGB', (800, 600), color='white')
             draw = ImageDraw.Draw(img)
             
@@ -30,21 +33,25 @@ def fitting_room(request):
             buffer = BytesIO()
             img.save(buffer, format='PNG')
             look.image.save(f'look_{uuid.uuid4()}.png', ContentFile(buffer.getvalue()))
-            look.save()
+            look.save()"""
             
             # Save the items to the look
             for item_data in canvas_data.get('items', []):
-                clothing_item = ClothingItem.objects.get(id=item_data['id'], user=request.user)
-                LookItem.objects.create(
-                    look=look,
-                    clothing_item=clothing_item,
-                    position_x=item_data['x'],
-                    position_y=item_data['y'],
-                    rotation=item_data['rotation'],
-                    scale=item_data['scale'],
-                    z_index=item_data['zIndex']
-                )
+                try:
+                    clothing_item = ClothingItem.objects.get(id=item_data['id'], user=request.user)
+                    LookItem.objects.create(
+                        look=look,
+                        clothing_item=clothing_item,
+                        position_x=item_data['x'],
+                        position_y=item_data['y'],
+                        rotation=item_data['rotation'],
+                        scale=item_data['scale'],
+                        z_index=item_data['zIndex']
+                    )
+                except ClothingItem.DoesNotExist:
+                    continue
             
+            #the Look.save() method will handle the image composition automatically
             return redirect('fitting_room:lookbook')
     else:
         form = LookForm()

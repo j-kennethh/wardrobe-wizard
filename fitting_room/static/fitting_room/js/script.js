@@ -14,20 +14,35 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     // Handle clothing selection from modal
-    document.getElementById('add-selected-items').addEventListener('click', function() {
+    document.getElementById('add-selected-items').addEventListener("click", function(e) {
+        console.log("Add selected items button clicked"); // test
+        
         const checkboxes = document.querySelectorAll('#clothing-selection-form input[name="items"]:checked');
         
+        if (checkboxes.length === 0) {
+            alert("Please select at least one item");
+            return;
+        }
+
         checkboxes.forEach(checkbox => {
-            const itemId = checkbox.value;
-            const itemCard = checkbox.closest('.card');
-            const itemImg = itemCard.querySelector('.card-img-top').src;
-            const itemTitle = itemCard.querySelector('.form-check-label').textContent.trim();
-            
-            addItemToCanvas(itemId, itemImg, itemTitle);
+            try {
+                const itemId = checkbox.value;
+                const card = checkbox.closest('.card');
+                const itemImg = card.querySelector('img').src;
+                const itemTitle = card.querySelector('.form-check-label').textContent.trim();
+                
+                addItemToCanvas(itemId, itemImg, itemTitle);
+                
+                // Uncheck the checkbox after adding
+                checkbox.checked = false;
+            } catch (error) {
+                console.error("Error processing checkbox:", error);
+            }
         });
         
         // Close the modal
-        bootstrap.Modal.getInstance(document.getElementById('clothingSelectorModal')).hide();
+        const modal = bootstrap.Modal.getInstance(document.getElementById('clothingSelectorModal'));
+        modal.hide();
     });
     
     // Add an item to the canvas
@@ -58,13 +73,13 @@ document.addEventListener('DOMContentLoaded', function() {
         // Add event listeners for the item
         itemElement.addEventListener('click', function(e) {
             if (e.target.classList.contains('delete-item')) return;
-            
-            // Select this item
             selectItem(itemElement);
         });
         
-        itemElement.querySelector('.delete-item').addEventListener('click', function() {
+        itemElement.querySelector('.delete-item').addEventListener('click', function(e) {
+            e.stopPropagation();
             itemElement.remove();
+            selectedElement = null;
         });
         
         // Show controls on hover
@@ -95,6 +110,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 ],
                 autoScroll: true,
                 listeners: {
+                    start: function(event) {
+                        selectItem(event.target);
+                    },
                     move: dragMoveListener
                 }
             })
@@ -118,7 +136,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         Object.assign(event.target.style, {
                             width: `${event.rect.width}px`,
                             height: `${event.rect.height}px`,
-                            transform: `rotate(${currentRotation}deg) scale(${currentScale})`
+                            transform: `translate(${x}px, ${y}px) rotate(${currentRotation}deg) scale(${currentScale})`
                         });
                         
                         Object.assign(event.target.dataset, { x, y });
@@ -212,13 +230,10 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Form submission - collect all items and their positions
     document.getElementById('look-form').addEventListener('submit', function(e) {
-        e.preventDefault();
-        
         const items = Array.from(document.querySelectorAll('.draggable-item')).map(item => {
             const x = parseFloat(item.getAttribute('data-x')) || 0;
             const y = parseFloat(item.getAttribute('data-y')) || 0;
             
-            // Get rotation and scale from transform
             const transform = item.style.transform;
             const rotationMatch = transform.match(/rotate\((\d+)deg\)/);
             const scaleMatch = transform.match(/scale\(([\d.]+)\)/);
@@ -243,6 +258,5 @@ document.addEventListener('DOMContentLoaded', function() {
         canvasDataInput.value = JSON.stringify({ items: items });
         
         this.appendChild(canvasDataInput);
-        this.submit();
     });
 });
