@@ -22,3 +22,7 @@ function drop(ev) {
 document.querySelectorAll(".draggable-item").forEach(el => {
     el.addEventListener("dragstart", drag)
 });
+
+document.getElementById("saveOutfitForm").addEventListener("submit", function () {
+    document.getElementById("item_ids").value = JSON.stringify(selectedItems);
+});
