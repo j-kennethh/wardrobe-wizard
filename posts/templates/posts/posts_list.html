@@ -67,7 +67,7 @@
             <div class="col">
                 <h1 class="mt-5 mb-5">Outfit Builder</h1>
                 <div class="border p-5 mb-3" id="canvas" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-                <form id="saveOutfitForm" method="post" action="">
+                <form id="saveOutfitForm" method="post" action="{% url 'posts:save-outfit' %}">
                     {% csrf_token %}
                     <input type="hidden" name="item_ids" id="item_ids">
                     <button type="submit" class="btn btn-success">Save Outfit</button>
