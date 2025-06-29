@@ -50,10 +50,10 @@ def post_new(request):
 def save_outfit(request):
     if request.method == "POST":
         item_ids = json.loads(request.POST.get("item_ids", "[]"))
-        outfit = Outfit.objects.create(user=request.user)
+        outfit = Outfit.objects.create(author=request.user)
         for item_id in item_ids:
             try:
-                item = Post.objects.get(id=item.id.replace("item-", ""))
+                item = Post.objects.get(id=item_id.replace("item-", ""))
                 outfit.items.add(item)
             except Post.DoesNotExist:
                 continue
