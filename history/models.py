@@ -4,7 +4,7 @@ from django.conf import settings
 # Create your models here.
 class OutfitHistory(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    look = models.ForeignKey('Look', on_delete=models.CASCADE)
+    look = models.ForeignKey('fitting_room.Look', on_delete=models.CASCADE)
     date = models.DateField()
     notes = models.TextField(blank=True, null=True) # optional remarks
 
