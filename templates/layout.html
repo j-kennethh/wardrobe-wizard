@@ -39,7 +39,7 @@
                         <a class="nav-link {% if request.path == '/fitting-room/' %}active{% endif %}" href="{% url 'fitting_room:fitting_room' %}">Virtual Fitting Room</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {% if request.path == '/fitting-room/lookbook' %}active{% endif %}" href="{% url 'fitting_room:lookbook' %}">Lookbook</a>
+                        <a class="nav-link {% if request.path == '/fitting-room/lookbook/' %}active{% endif %}" href="{% url 'fitting_room:lookbook' %}">Lookbook</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav ms-auto">
@@ -67,7 +67,7 @@
         {% endblock %}
     </main>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
+    {% comment %} <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script> {% endcomment %}
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{% static 'fitting_room/js/interact.min.js' %}"></script>
