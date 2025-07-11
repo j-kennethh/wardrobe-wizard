@@ -5,6 +5,8 @@ from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from . import forms
 from taggit.models import Tag
+from rembg import remove
+from django.core.files.base import ContentFile
 # Create your views here.
 
 @login_required
@@ -30,6 +32,14 @@ def clothing_item_new(request):
         if form.is_valid():
             newpost = form.save(commit=False)
             newpost.user = request.user
+
+            uploaded_image = request.FILES.get('image')
+            if uploaded_image:
+                input_bytes = uploaded_image.read()
+                output_bytes = remove(input_bytes)
+                processed_image = ContentFile(output_bytes, name=uploaded_image.name)
+                newpost.image.save(uploaded_image.name, processed_image, save=False)
+
             newpost.save()
             form.save_m2m() #to save tags as commit=False skips saving related many-to-many fields
             return redirect('closet:list')
@@ -37,4 +47,9 @@ def clothing_item_new(request):
     else:
         form = forms.CreateClothingItem()
     return render(request, 'closet/new_item.html', {'form': form})
-    
+
+@login_required
+def clothing_item_delete(request, pk):
+    item = get_object_or_404(ClothingItem, pk=pk, user=request.user)
+    item.delete()
+    return redirect('closet:list')
