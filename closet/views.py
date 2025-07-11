@@ -47,4 +47,9 @@ def clothing_item_new(request):
     else:
         form = forms.CreateClothingItem()
     return render(request, 'closet/new_item.html', {'form': form})
-    
+
+@login_required
+def clothing_item_delete(request, pk):
+    item = get_object_or_404(ClothingItem, pk=pk, user=request.user)
+    item.delete()
+    return redirect('closet:list')
