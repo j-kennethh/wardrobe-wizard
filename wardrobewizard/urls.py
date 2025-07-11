@@ -27,6 +27,7 @@ urlpatterns = [
     path('about/', views.about),
     path('closet/', include('closet.urls')),
     path('users/', include('users.urls')),
+    path('fitting-room/', include('fitting_room.urls')),
     
 ]
 

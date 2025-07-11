@@ -12,9 +12,9 @@ def clothing_items_list(request):
     tag = request.GET.get('tag')
     tags = Tag.objects.all()
     if tag:
-        items = ClothingItem.objects.filter(author=request.user, tags__name=tag)
+        items = ClothingItem.objects.filter(user=request.user, tags__name=tag)
     else:
-        items = ClothingItem.objects.filter(author=request.user)
+        items = ClothingItem.objects.filter(user=request.user)
     
     return render(request, 'closet/clothing_items_list.html', {'items': items, 'user': request.user, 'selected_tag': tag, 'tags': tags})
 
@@ -29,7 +29,7 @@ def clothing_item_new(request):
         form = forms.CreateClothingItem(request.POST, request.FILES)
         if form.is_valid():
             newpost = form.save(commit=False)
-            newpost.author = request.user
+            newpost.user = request.user
             newpost.save()
             form.save_m2m() #to save tags as commit=False skips saving related many-to-many fields
             return redirect('closet:list')

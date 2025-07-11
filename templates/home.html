@@ -8,9 +8,10 @@
     <div class="container-md">
         <h1 class="mt-5 mb-5">Welcome back, {{ user }}!</h1>
         <p class="mb-3">Go to <a href="{% url 'closet:list' %}"> Closet</a></p>
+        <p class="mb-3">Add a new look at the <a href="{% url 'fitting_room:fitting_room' %}"> Fitting Room</a>!</p>
+        <p class="mb-3">Check out my looks at <a href="{% url 'fitting_room:lookbook' %}"> LookBook </a>!</p>
         <p class="mb-3"><a href="{% url 'closet:new-item' %}">Add</a> a new clothing item</p>
         <p class="mb-3">Check out my <a href="/about">Statistics</a> page!</p>
-        <p class="mb-3">Check out my <a href="/about">LookBook</a> page!</p>
         <p class="mb-3">Access the <a href="/about">AI Stylist</a>!</p>
         <p class="mb-3">Check out the <a href="/about">Community Lookbooks</a>!</p>
     </div>

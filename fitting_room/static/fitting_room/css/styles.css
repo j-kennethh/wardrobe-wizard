@@ -1,0 +1,29 @@
+.draggable-item {
+    transition: transform 0.1s ease;
+    max-width: 300px;
+}
+
+.draggable-item img {
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+#fitting-room-canvas {
+    border: 2px dashed #ccc;
+    border-radius: 5px;
+}
+
+.item-controls button {
+    padding: 0 0.5rem;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.look-card {
+    transition: transform 0.2s;
+}
+
+.look-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
