@@ -1,9 +1,13 @@
 {% extends "layout.html" %}
 {% load static %}
 
+{% block title %}
+    Wardrobe Wizard | Outfit History
+{% endblock %}
+
 {% block content %}
 <div class="container md">
-    <h1 class="mt-5 mb-5">Outfit History</h1>
+    <h2 class="mt-5 mb-5">Outfit History</h2>
     <a href="{% url 'history:log_outfit' %}" class="btn btn-primary mb-3">Log Today's Outfit</a>
 
     {% if entries %}
