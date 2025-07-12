@@ -4,7 +4,7 @@ from .models import OutfitHistory
 class OutfitHistoryForm(forms.ModelForm):
     class Meta:
         model = OutfitHistory
-        fields = ['look', 'data', 'notes']
+        fields = ['look', 'date', 'notes']
         widgets = {
             'date': forms.DateInput(attrs={'type': 'date'}),
             'notes': forms.Textarea(attrs={'rows':2, 'class':'form-control'}),

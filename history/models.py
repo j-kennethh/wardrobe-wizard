@@ -13,4 +13,4 @@ class OutfitHistory(models.Model):
         ordering = ['-date']
 
     def __str__(self):
-        return f"{self.user.username} wore '{self.look.title}' on {self.date} "
+        return f"{self.user.username} wore '{self.look.title}' on {self.date}"
