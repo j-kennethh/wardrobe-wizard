@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container-md">
+    <h1 class="mt-5 mb-5">Log Today's Outfit</h1>
+
+    <form method="post" class="needs-validation">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="id_look" class="form-label">Look</label>
+            {{ form.look }}
+        </div>
+        <div class="mb-3">
+            <label for="id_date" class="form-label">Date</label>
+            {{ form.date }}
+        </div>
+        <div class="mb-3">
+            <label for="id_notes" class="form-label">Notes</label>
+            {{ form.notes }}
+        </div>
+        <button type="submit" class="btn btn-success">Save</button>
+        <a href="{% url 'history:history' %}" class="btn btn-secondary ms-2">Cancel</a>
+    </form>
+</div>
+{% endblock %}

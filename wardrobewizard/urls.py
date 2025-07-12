@@ -28,7 +28,7 @@ urlpatterns = [
     path('closet/', include('closet.urls')),
     path('users/', include('users.urls')),
     path('fitting-room/', include('fitting_room.urls')),
-    
+    path('history/', include('history.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

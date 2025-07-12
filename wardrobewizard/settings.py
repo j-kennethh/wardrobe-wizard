@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'fitting_room',
     'users',
     'taggit',
+    'history',
 ]
 
 MIDDLEWARE = [
