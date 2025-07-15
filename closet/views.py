@@ -33,12 +33,12 @@ def clothing_item_new(request):
             newpost = form.save(commit=False)
             newpost.user = request.user
 
-            uploaded_image = request.FILES.get('image')
-            if uploaded_image:
-                input_bytes = uploaded_image.read()
-                output_bytes = remove(input_bytes)
-                processed_image = ContentFile(output_bytes, name=uploaded_image.name)
-                newpost.image.save(uploaded_image.name, processed_image, save=False)
+            # uploaded_image = request.FILES.get('image')
+            # if uploaded_image:
+            #     input_bytes = uploaded_image.read()
+            #     output_bytes = remove(input_bytes)
+            #     processed_image = ContentFile(output_bytes, name=uploaded_image.name)
+            #     newpost.image.save(uploaded_image.name, processed_image, save=False)
 
             newpost.save()
             form.save_m2m() #to save tags as commit=False skips saving related many-to-many fields
