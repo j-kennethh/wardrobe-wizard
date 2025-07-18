@@ -9,6 +9,7 @@
 <div class="container mt-4">
     <h2 class="mt-5 mb-5">Virtual Fitting Room</h2>
     
+    <!--Canvas-->
     <div class="row">
         <div class="col-md-8">
             <div class="card">
@@ -23,6 +24,7 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Save Your Look</h5>
+                    <!--Create the look here-->
                     <form id="look-form" method="post">
                         {% csrf_token %}
                         {{ form.as_p }}
@@ -36,6 +38,7 @@
                 </div>
             </div>
             
+            <!--Controls-->
             <div class="card mt-3">
                 <div class="card-body">
                     <h5 class="card-title">Controls</h5>
@@ -61,7 +64,7 @@
     </div>
 </div>
 
-<!-- Include the clothing selector modal -->
+<!-- Clothing selector modal -->
 {% comment %} {% include 'fitting_room/includes/clothing_selector_modal.html' %} {% endcomment %}
 <div class="modal fade" id="clothingSelectorModal" tabindex="-1" aria-labelledby="clothingSelectorModalLabel" aria-model="true">
     <div class="modal-dialog modal-lg">
@@ -100,11 +103,19 @@
     </div>
 </div>
 
+<!--Screenshot testing-->
+<div class="container mt-4">
+    <button id="screenshot" class="btn btn-primary">Take Screenshot</button>
+    <div id="screenshot-result" class="mt-3"></div>
+</div>
+
 
 {% endblock %}
 
-{% block extra_js %}
+{% comment %} {% block extra_js %}
+
 <script src="{% static 'fitting_room/js/interact.min.js' %}"></script>
-<script src="{% static 'fitting_room/js/script.js' %}"></script>
-{% endblock %}
+<script src="{% static 'fitting_room/js/fitting_room.js' %}"></script>
+
+{% endblock %} {% endcomment %}
 
