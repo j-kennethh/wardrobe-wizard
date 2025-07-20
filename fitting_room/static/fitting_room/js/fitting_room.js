@@ -264,20 +264,31 @@ document.addEventListener('DOMContentLoaded', function () {
             const element = document.getElementById('fitting-room-canvas');
 
             html2canvas(element).then(canvas => {
+                // pastes screenshot at bottom of page in 'screenshot-result' element
                 const resultDiv = document.getElementById('screenshot-result');
                 resultDiv.innerHTML = '';
                 resultDiv.appendChild(canvas);
 
-                // download screenshot
-                // const downloadBtn = document.createElement('a');
-                // downloadBtn.href = canvas.toDataURL('image/png');
-                // downloadBtn.download = 'screenshot.png';
-                // downloadBtn.className = 'btn btn-success mt-2';
-                // downloadBtn.textContent = 'Download Image';
-                // resultDiv.appendChild(downloadBtn);
             });
         });
     }
+
+    // look-form submission
+    document.getElementById('submit-to-lookbook').addEventListener('click', function (e) {
+        e.preventDefault() //Prevent default form submission
+        const element = document.getElementById('fitting-room-canvas');
+
+        html2canvas(element).then(canvas => {
+            // Convert canvas to base64 image
+            const imageData = canvas.toDataURL('image/png');
+
+            // Set the hidden field value
+            document.getElementById('screenshot-data').value = imageData;
+
+            // Submit the form
+            document.getElementById('look-form').submit();
+        });
+    });
 
     // // Form submission - collect all items and their positions
     // document.getElementById('look-form').addEventListener('submit', function (e) {

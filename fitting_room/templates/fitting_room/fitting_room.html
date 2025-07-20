@@ -25,15 +25,16 @@
                 <div class="card-body">
                     <h5 class="card-title">Save Your Look</h5>
                     <!--Create the look here-->
-                    <form id="look-form" method="post">
+                    <form id="look-form" method="post" enctype="multipart/form-data">
                         {% csrf_token %}
-                        {{ form.as_p }}
+                        {{ form.as_p }}  <!--Has hidden input screenshot_data-->
+                        <input type="hidden" name="screenshot_data" id="screenshot-data">
+                        
                         <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#clothingSelectorModal">
                             Select Clothing Items
                         </button>
                         
-                        
-                        <button type="submit" class="btn btn-success">Save to Lookbook</button>
+                        <button type="submit" id="submit-to-lookbook" class="btn btn-success">Save to Lookbook</button>
                     </form>
                 </div>
             </div>

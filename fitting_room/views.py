@@ -1,3 +1,4 @@
+import base64
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
@@ -11,11 +12,11 @@ import uuid
 import os
 from io import BytesIO
 
-
+"""
 @login_required
 def fitting_room(request):
     if request.method == "POST":
-        form = LookForm(request.POST)
+        form = LookForm(request.POST, request.FILES)
         if form.is_valid():
             look = form.save(commit=False)
             look.user = request.user
@@ -26,15 +27,15 @@ def fitting_room(request):
             # first save the blank image
             look.save()
 
-            """# Create a blank image for the look
-            img = Image.new('RGB', (800, 600), color='white')
+            # Create a blank image for the look
+            img = Image.new("RGB", (800, 600), color="white")
             draw = ImageDraw.Draw(img)
-            
+
             # For now just save the blank image, we'll implement compositing later
             buffer = BytesIO()
-            img.save(buffer, format='PNG')
-            look.image.save(f'look_{uuid.uuid4()}.png', ContentFile(buffer.getvalue()))
-            look.save()"""
+            img.save(buffer, format="PNG")
+            look.image.save(f"look_{uuid.uuid4()}.png", ContentFile(buffer.getvalue()))
+            look.save()
 
             # Save the items to the look
             for item_data in canvas_data.get("items", []):
@@ -54,7 +55,7 @@ def fitting_room(request):
                 except ClothingItem.DoesNotExist:
                     continue
 
-            # the look.save() method will handle the image composition automatically
+            # # the look.save() method will handle the image composition automatically
             return redirect("fitting_room:lookbook")
     else:
         form = LookForm()
@@ -70,6 +71,38 @@ def fitting_room(request):
             "form": form,
             "clothing_items": clothing_items,
             "selection_form": selection_form,
+        },
+    )
+"""
+
+
+@login_required
+def fitting_room(request):
+    if request.method == "POST":
+        form = LookForm(request.POST, request.FILES)
+        if form.is_valid():
+            look = form.save(commit=False)
+            look.user = request.user
+
+            # Handle screenshot
+            screenshot_data = request.POST.get("screenshot_data", "")
+            if screenshot_data:
+                look.save(screenshot_data=screenshot_data)
+            else:
+                look.save()
+            return redirect("fitting_room:lookbook")
+    else:
+        form = LookForm()
+
+    # Renders all clothing items in the selection modal
+    clothing_items = ClothingItem.objects.filter(user=request.user)
+
+    return render(
+        request,
+        "fitting_room/fitting_room.html",
+        {
+            "form": form,
+            "clothing_items": clothing_items,
         },
     )
 
