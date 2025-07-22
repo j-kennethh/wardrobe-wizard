@@ -52,6 +52,11 @@
                         </button>
                     </div>
                     <div class="mt-2">
+                        <button type="button" class="btn btn-primary btn-danger" id="delete-item">
+                            Delete Item
+                        </button>
+                    </div>
+                    <div class="mt-2">
                         <label for="rotation-slider" class="form-label">Rotation: <span id="rotation-value">0</span>°</label>
                         <input type="range" class="form-range" id="rotation-slider" min="0" max="360" value="0">
                     </div>
@@ -59,6 +64,7 @@
                         <label for="scale-slider" class="form-label">Scale: <span id="scale-value">100</span>%</label>
                         <input type="range" class="form-range" id="scale-slider" min="50" max="200" value="100">
                     </div>
+                    
                 </div>
             </div>
         </div>
@@ -109,6 +115,7 @@
     <button id="screenshot" class="btn btn-primary">Take Screenshot</button>
     <div id="screenshot-result" class="mt-3"></div>
 </div>
+
 
 
 {% endblock %}

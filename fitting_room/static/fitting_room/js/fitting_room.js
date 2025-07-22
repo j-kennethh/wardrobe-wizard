@@ -90,7 +90,6 @@ document.addEventListener('DOMContentLoaded', function () {
         itemElement.innerHTML = `
             <img src="${itemImg}" alt="${itemTitle}" style="width: 100%; height: auto; pointer-events: none;">
             <div class="item-controls" style="position: absolute; top: -25px; left: 0; display: none;">
-                <button class="btn btn-sm btn-danger delete-item">×</button>
             </div>
         `;
 
@@ -99,9 +98,19 @@ document.addEventListener('DOMContentLoaded', function () {
         // Make the item draggable and resizable
         setupInteract(itemElement);
 
-        // Add event listeners for the item
+
+        /*
+        // Delete Item Button On the Item (X) - Removed
+        itemElement.innerHTML = `
+            <img src="${itemImg}" alt="${itemTitle}" style="width: 100%; height: auto; pointer-events: none;">
+            <div class="item-controls" style="position: absolute; top: -25px; left: 0; display: none;">
+                <button class="btn btn-sm btn-danger delete-item">×</button>
+            </div>
+        `;
+
+        // Add event listeners for deleting the item
         itemElement.addEventListener('click', function (e) {
-            if (e.target.classList.contains('delete-item')) return;
+            // if (e.target.classList.contains('delete-item')) return;
             selectItem(itemElement);
         });
 
@@ -109,6 +118,12 @@ document.addEventListener('DOMContentLoaded', function () {
             e.stopPropagation();
             itemElement.remove();
             selectedElement = null;
+        });
+        */
+
+        // Add event listeners for Selecting Item
+        itemElement.addEventListener('click', function () {
+            selectItem(itemElement);
         });
 
         // Show controls on hover
@@ -131,7 +146,7 @@ document.addEventListener('DOMContentLoaded', function () {
         console.log("Setting up interact for element:", element);
         interact(element)
             .draggable({
-                inertia: true,
+                inertia: false,
                 modifiers: [
                     interact.modifiers.restrictRect({
                         restriction: 'parent',
@@ -256,6 +271,16 @@ document.addEventListener('DOMContentLoaded', function () {
         if (currentZIndex > 1) {
             selectedElement.style.zIndex = currentZIndex - 1;
         }
+    });
+
+    // Delete Item Button
+    document.getElementById('delete-item').addEventListener('click', function (e) {
+
+        if (!selectedElement) return;
+
+        e.stopPropagation();
+        selectedElement.remove();
+        selectedElement = null;
     });
 
     // Screenshot functionality
