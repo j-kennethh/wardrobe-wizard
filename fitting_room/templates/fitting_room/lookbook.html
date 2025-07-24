@@ -18,7 +18,6 @@
                     <h5 class="card-title">{{ look.title }}</h5>
                     <p class="card-text text-muted">Created {{ look.created_at|date:"F j, Y" }}</p>
                     <div class="d-flex justify-content-between">
-                        <a href="#" class="btn btn-sm btn-outline-primary">Edit</a>
                         <form method="post" action="{% url 'fitting_room:delete_look' look.id %}">
                             {% csrf_token %}
                             <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>

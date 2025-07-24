@@ -7,6 +7,10 @@
 {% block content %}
     <div class="container-md">
         <h2 class="mt-5 mb-5">Closet</h2>
+        <div class="mb-3">
+            <a href="{% url 'closet:new-item' %}" class="btn addbtn">Add New Clothing Item</a>
+        </div>
+        
         
         <!--Filter Feature-->
         <form method="get" action="">
@@ -38,7 +42,7 @@
         <div class="row">
             {% for item in items %}
             <div class="col">
-                <div class="card text-center mb-3" style="width: 15rem;">
+                <div class="card text-center mb-3 testcard" style="width: 15rem;">
                     <article class="mt-3 mb-3">
                         <img 
                             class="image"

@@ -1,8 +1,50 @@
-* {
+/* * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+} */
+
+/* .body {
+    background-color: #9f6967 !important;
+} */
+
+.navbar {
+    background-color: #d9b99b !important;
 }
+
+.card {
+    background-color: #eed9c4 !important;
+    outline: black;
+}
+
+.addbtn {
+    background-color: #A57A5A;
+}
+
+.row .col-md-4 .card .card-body .btn {
+    background-color: #A57A5A;
+    color: white;
+    border: #A57A5A;
+}
+
+.row .col-md-4 .card .card-body .btn-danger {
+    background-color: red;
+    color: white;
+}
+
+/* .testcard {
+    max-height: 30vw;
+} */
+
+/* .container-md {
+    background-color: #fff0db;
+} */
+
+html body {
+    background-color: #fff0db;
+
+}
+
 
 /*
 body {
@@ -59,7 +101,7 @@ a:hover {
 }
 
 /* below is basic css that was used in lesson 1*/
- /* {
+/* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -78,7 +120,7 @@ h1, p {
     text-align: center;
 } */
 
-* {
+/* * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -89,7 +131,7 @@ body {
     background-color: black;
     color: whitesmoke;
     font-size: 3rem;
-}
+} */
 
 /* nav {
     padding: 1rem;
@@ -98,7 +140,7 @@ body {
     font-size: 2.5rem;
 } */
 
-main {
+/* main {
     padding: 1rem;
 }
 
@@ -188,4 +230,4 @@ a:hover {
 
 .logout-button:hover {
     opacity: .85;
-}
+} */
