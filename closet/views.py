@@ -14,10 +14,11 @@ def clothing_items_list(request):
     tag = request.GET.get("tag")
     tags = Tag.objects.all()
     if tag:
-        items = ClothingItem.objects.filter(user=request.user, tags__name=tag)
+        items = ClothingItem.objects.filter(user=request.user, tags__name=tag).order_by(
+            "-date"
+        )
     else:
-        items = ClothingItem.objects.filter(user=request.user)
-
+        items = ClothingItem.objects.filter(user=request.user).order_by("-date")
     return render(
         request,
         "closet/clothing_items_list.html",

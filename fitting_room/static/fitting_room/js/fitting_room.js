@@ -99,28 +99,6 @@ document.addEventListener('DOMContentLoaded', function () {
         setupInteract(itemElement);
 
 
-        /*
-        // Delete Item Button On the Item (X) - Removed
-        itemElement.innerHTML = `
-            <img src="${itemImg}" alt="${itemTitle}" style="width: 100%; height: auto; pointer-events: none;">
-            <div class="item-controls" style="position: absolute; top: -25px; left: 0; display: none;">
-                <button class="btn btn-sm btn-danger delete-item">×</button>
-            </div>
-        `;
-
-        // Add event listeners for deleting the item
-        itemElement.addEventListener('click', function (e) {
-            // if (e.target.classList.contains('delete-item')) return;
-            selectItem(itemElement);
-        });
-
-        itemElement.querySelector('.delete-item').addEventListener('click', function (e) {
-            e.stopPropagation();
-            itemElement.remove();
-            selectedElement = null;
-        });
-        */
-
         // Add event listeners for Selecting Item
         itemElement.addEventListener('click', function () {
             selectItem(itemElement);
@@ -314,37 +292,5 @@ document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('look-form').submit();
         });
     });
-
-    // // Form submission - collect all items and their positions
-    // document.getElementById('look-form').addEventListener('submit', function (e) {
-    //     const items = Array.from(document.querySelectorAll('.draggable-item')).map(item => {
-    //         const x = parseFloat(item.getAttribute('data-x')) || 0;
-    //         const y = parseFloat(item.getAttribute('data-y')) || 0;
-
-    //         const transform = item.style.transform;
-    //         const rotationMatch = transform.match(/rotate\((\d+)deg\)/);
-    //         const scaleMatch = transform.match(/scale\(([\d.]+)\)/);
-
-    //         const rotation = rotationMatch ? parseInt(rotationMatch[1]) : 0;
-    //         const scale = scaleMatch ? parseFloat(scaleMatch[1]) : 1;
-
-    //         return {
-    //             id: item.dataset.itemId,
-    //             x: x,
-    //             y: y,
-    //             rotation: rotation,
-    //             scale: scale,
-    //             zIndex: parseInt(item.style.zIndex)
-    //         };
-    //     });
-
-    //     // Create a hidden input with the canvas data
-    //     const canvasDataInput = document.createElement('input');
-    //     canvasDataInput.type = 'hidden';
-    //     canvasDataInput.name = 'canvas_data';
-    //     canvasDataInput.value = JSON.stringify({ items: items });
-
-    //     this.appendChild(canvasDataInput);
-    // });
 
 });

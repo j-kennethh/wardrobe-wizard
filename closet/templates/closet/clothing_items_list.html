@@ -6,7 +6,7 @@
 
 {% block content %}
     <div class="container-md">
-        <h2 class="mt-5 mb-5">Closet</h2>
+        <h2 class="mt-5 mb-3">Closet</h2>
         <div class="mb-3">
             <a href="{% url 'closet:new-item' %}" class="btn addbtn">Add New Clothing Item</a>
         </div>
@@ -51,15 +51,14 @@
                             width = 150
                             alt="{{ item.title }}"
                         />
-                        <h3>
+                        <h4>
                             <div class="position-relative">
                                 <a href="{% url 'closet:page' item.pk %}">
                                     {{ item.title }}
                                 </a>
                             </div>
-                        </h3>
-                        <p>{{ item.date }}</p>
-                        <p>{{ item.category }}</p>
+                        </h4>
+                        
                         <p>Tags:
                             {% for tag in item.tags.all %}
                                 <span>{{ tag }}</span>{% if not forloop.last %}, {% endif %} 
