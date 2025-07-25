@@ -12,7 +12,7 @@ class CreateClothingItem(forms.ModelForm):
             "image": forms.ClearableFileInput(
                 attrs={
                     "accept": "image/*",
-                    "": "environment",
+                    "capture": "environment",  # allows camera capture
                 }
             ),
             "tags": TagWidget(
