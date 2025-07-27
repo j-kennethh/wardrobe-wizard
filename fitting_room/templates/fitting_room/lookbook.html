@@ -8,6 +8,11 @@
 {% block content %}
 <div class="container mt-4">
     <h2 class="mt-5 mb-3">Lookbook</h2>
+
+    <div class="mb-3">
+            <a href="{% url 'fitting_room:fitting_room' %}" class="btn addbtn">Add new Look</a>
+            <a href="{% url 'history:log_outfit' %}" class="btn addbtn">Log Today's Outfit</a>
+    </div>
     
     <div class="row">
         {% for look in looks %}
