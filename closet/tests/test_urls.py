@@ -13,7 +13,7 @@ class TestUrls(SimpleTestCase):
         self.assertEquals(resolve(url).func, clothing_items_list)
 
     def test_new_item_url_resolves(self):
-        url = reverse("closet:new-item")
+        url = reverse("closet:new_item")
         self.assertEquals(resolve(url).func, clothing_item_new)
 
     def test_page_url_resolves(self):
