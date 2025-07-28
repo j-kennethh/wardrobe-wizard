@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
 
-class UserViewsTest(TestCase):
+class UserTestViews(TestCase):
     def setUp(self):
         self.client = Client()
         self.register_url = reverse("users:register")

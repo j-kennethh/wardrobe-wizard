@@ -2,7 +2,7 @@ import base64
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
-from .models import Look, LookItem
+from .models import Look
 from .forms import LookForm, ClothingItemSelectionForm
 from closet.models import ClothingItem
 from django.core.files.base import ContentFile
