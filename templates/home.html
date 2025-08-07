@@ -6,9 +6,9 @@
 
 {% block content %}
     <div class="container-md">
-        <h1 class="mt-5 mb-5">Welcome back, {{ user }}!</h1>
+        <h1 class="mt-5 mb-3">Welcome back, {{ user }}!</h1>
         <p class="mb-3">Go to your <a href="{% url 'closet:list' %}"> Closet</a></p>
-        <p class="mb-3"><a href="{% url 'closet:new-item' %}">Add</a> a new clothing item</p>
+        <p class="mb-3"><a href="{% url 'closet:new_item' %}">Add</a> a new clothing item</p>
         <p class="mb-3">Create a new look in the <a href="{% url 'fitting_room:fitting_room' %}"> Fitting Room</a></p>
         <p class="mb-3">Check out your looks in <a href="{% url 'fitting_room:lookbook' %}"> Lookbook </a></p>
         <p class="mb-3">Track daily outfits in <a href="{% url 'history:history' %}">Outfit History</a></p>

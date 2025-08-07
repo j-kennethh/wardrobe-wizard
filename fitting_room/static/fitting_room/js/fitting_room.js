@@ -90,7 +90,6 @@ document.addEventListener('DOMContentLoaded', function () {
         itemElement.innerHTML = `
             <img src="${itemImg}" alt="${itemTitle}" style="width: 100%; height: auto; pointer-events: none;">
             <div class="item-controls" style="position: absolute; top: -25px; left: 0; display: none;">
-                <button class="btn btn-sm btn-danger delete-item">×</button>
             </div>
         `;
 
@@ -99,16 +98,10 @@ document.addEventListener('DOMContentLoaded', function () {
         // Make the item draggable and resizable
         setupInteract(itemElement);
 
-        // Add event listeners for the item
-        itemElement.addEventListener('click', function (e) {
-            if (e.target.classList.contains('delete-item')) return;
-            selectItem(itemElement);
-        });
 
-        itemElement.querySelector('.delete-item').addEventListener('click', function (e) {
-            e.stopPropagation();
-            itemElement.remove();
-            selectedElement = null;
+        // Add event listeners for Selecting Item
+        itemElement.addEventListener('click', function () {
+            selectItem(itemElement);
         });
 
         // Show controls on hover
@@ -131,7 +124,7 @@ document.addEventListener('DOMContentLoaded', function () {
         console.log("Setting up interact for element:", element);
         interact(element)
             .draggable({
-                inertia: true,
+                inertia: false,
                 modifiers: [
                     interact.modifiers.restrictRect({
                         restriction: 'parent',
@@ -258,57 +251,46 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
+    // Delete Item Button
+    document.getElementById('delete-item').addEventListener('click', function (e) {
+
+        if (!selectedElement) return;
+
+        e.stopPropagation();
+        selectedElement.remove();
+        selectedElement = null;
+    });
+
     // Screenshot functionality
     if (document.getElementById('screenshot')) {
         document.getElementById('screenshot').addEventListener('click', function () {
             const element = document.getElementById('fitting-room-canvas');
 
             html2canvas(element).then(canvas => {
+                // pastes screenshot at bottom of page in 'screenshot-result' element
                 const resultDiv = document.getElementById('screenshot-result');
                 resultDiv.innerHTML = '';
                 resultDiv.appendChild(canvas);
 
-                // download screenshot
-                // const downloadBtn = document.createElement('a');
-                // downloadBtn.href = canvas.toDataURL('image/png');
-                // downloadBtn.download = 'screenshot.png';
-                // downloadBtn.className = 'btn btn-success mt-2';
-                // downloadBtn.textContent = 'Download Image';
-                // resultDiv.appendChild(downloadBtn);
             });
         });
     }
 
-    // // Form submission - collect all items and their positions
-    // document.getElementById('look-form').addEventListener('submit', function (e) {
-    //     const items = Array.from(document.querySelectorAll('.draggable-item')).map(item => {
-    //         const x = parseFloat(item.getAttribute('data-x')) || 0;
-    //         const y = parseFloat(item.getAttribute('data-y')) || 0;
+    // look-form submission
+    document.getElementById('submit-to-lookbook').addEventListener('click', function (e) {
+        e.preventDefault() //Prevent default form submission
+        const element = document.getElementById('fitting-room-canvas');
 
-    //         const transform = item.style.transform;
-    //         const rotationMatch = transform.match(/rotate\((\d+)deg\)/);
-    //         const scaleMatch = transform.match(/scale\(([\d.]+)\)/);
+        html2canvas(element).then(canvas => {
+            // Convert canvas to base64 image
+            const imageData = canvas.toDataURL('image/png');
 
-    //         const rotation = rotationMatch ? parseInt(rotationMatch[1]) : 0;
-    //         const scale = scaleMatch ? parseFloat(scaleMatch[1]) : 1;
+            // Set the hidden field value
+            document.getElementById('screenshot-data').value = imageData;
 
-    //         return {
-    //             id: item.dataset.itemId,
-    //             x: x,
-    //             y: y,
-    //             rotation: rotation,
-    //             scale: scale,
-    //             zIndex: parseInt(item.style.zIndex)
-    //         };
-    //     });
-
-    //     // Create a hidden input with the canvas data
-    //     const canvasDataInput = document.createElement('input');
-    //     canvasDataInput.type = 'hidden';
-    //     canvasDataInput.name = 'canvas_data';
-    //     canvasDataInput.value = JSON.stringify({ items: items });
-
-    //     this.appendChild(canvasDataInput);
-    // });
+            // Submit the form
+            document.getElementById('look-form').submit();
+        });
+    });
 
 });

@@ -14,10 +14,11 @@ def clothing_items_list(request):
     tag = request.GET.get("tag")
     tags = Tag.objects.all()
     if tag:
-        items = ClothingItem.objects.filter(user=request.user, tags__name=tag)
+        items = ClothingItem.objects.filter(user=request.user, tags__name=tag).order_by(
+            "-date"
+        )
     else:
-        items = ClothingItem.objects.filter(user=request.user)
-
+        items = ClothingItem.objects.filter(user=request.user).order_by("-date")
     return render(
         request,
         "closet/clothing_items_list.html",
@@ -38,7 +39,7 @@ def clothing_item_new(request):
             newpost = form.save(commit=False)
             newpost.user = request.user
 
-            uploaded_image = request.FILES.get('image')
+            uploaded_image = request.FILES.get("image")
             if uploaded_image:
                 input_bytes = uploaded_image.read()
                 output_bytes = remove(input_bytes)

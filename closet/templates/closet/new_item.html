@@ -6,18 +6,12 @@
 
 {% block content %}
     <div class="container-md">
-        <h2 class="mt-5 mb-5">New Item</h2>
-        <form class="form-with-validation" action="{% url 'closet:new-item'  %}" height = 287 width = 287 method="post" enctype="multipart/form-data">
+        <h2 class="mt-5 mb-3">New Item</h2>
+        <form class="form-with-validation" action="{% url 'closet:new_item'  %}" height = 287 width = 287 method="post" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form }} 
             
-            {% comment %} <p>Name: {{ form.title }}</p>
-            <p>Category: {{ form.category }}</p>
-            <p>Slug: {{ form.slug }}</p>
-            
-            the input below allows us to take picture, but need to link it to the new-item object 
-            <input type="file" accept="media/*" capture="environment" id="{{ form.image }}"> {% endcomment %}
-            <button class="form-submit"> Add Item </button>
+            <button class="form-submit" id="new-item-form-button"> Add Item </button>
             
         </form>
     </div>
