@@ -2,14 +2,11 @@ from django.test import TestCase, SimpleTestCase
 from django.urls import reverse, resolve
 from closet.views import clothing_items_list, clothing_item_new, clothing_item_page
 
-# Create your tests here.
-
 
 class TestUrls(SimpleTestCase):
 
     def test_list_url_resolves(self):
         url = reverse("closet:list")
-        # print(resolve(url))
         self.assertEquals(resolve(url).func, clothing_items_list)
 
     def test_new_item_url_resolves(self):

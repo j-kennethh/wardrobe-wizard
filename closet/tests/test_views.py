@@ -1,6 +1,7 @@
 from django.test import TestCase, Client
 from django.urls import reverse
-from closet.models import ClothingItem, User
+from closet.models import ClothingItem
+from django.contrib.auth.models import User
 import json
 
 

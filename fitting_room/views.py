@@ -54,10 +54,7 @@ def lookbook(request):
 def delete_look(request, look_id):
     look = get_object_or_404(Look, id=look_id, user=request.user)
     if request.method == "POST":
+        look.image.delete()
         look.delete()
         return redirect("fitting_room:lookbook")
     return redirect("fitting_room:lookbook")
-
-
-def test(request):
-    return render(request, "fitting_room/test.html")
