@@ -1,6 +1,7 @@
 from django.test import TestCase, Client
 from django.urls import reverse
-from closet.models import ClothingItem, User
+from closet.models import ClothingItem
+from django.contrib.auth.models import User
 import json
 
 
@@ -22,7 +23,7 @@ class TestViews(TestCase):
 
         self.new_item_url = reverse("closet:new_item")
 
-    def test_clothing_item_list_GET(self):
+    def test_clothing_item_list_view_GET(self):
         response = self.client.get(self.list_url)
 
         self.assertEquals(response.status_code, 200)
@@ -31,7 +32,7 @@ class TestViews(TestCase):
         self.assertTemplateUsed(response, "closet/clothing_items_list.html")
         self.assertTemplateUsed(response, "layout.html")
 
-    def test_clothing_item_page_GET(self):
+    def test_clothing_item_page_view_GET(self):
         response = self.client.get(self.page_url)
 
         self.assertEquals(response.status_code, 200)
@@ -43,7 +44,7 @@ class TestViews(TestCase):
         self.assertTemplateUsed(response, "closet/clothing_item_page.html")
         self.assertTemplateUsed(response, "layout.html")
 
-    def test_clothing_item_new_POST(self):
+    def test_clothing_item_new_view_POST(self):
         response = self.client.get(self.new_item_url)
 
         self.assertEquals(response.status_code, 200)
