@@ -68,14 +68,14 @@ class CreateClothingItemFormTest(TestCase):
         self.assertTrue(tags.filter(name="summer").exists())
         self.assertTrue(tags.filter(name="cotton").exists())
 
-    def test_form_with_missing_required_fields(self):
+    def test_form_validation_with_missing_required_fields(self):
         # test without title (required field)
         form_data = {"image": self.test_image}
         form = CreateClothingItem(form_data, {"image": self.test_image})
         self.assertFalse(form.is_valid())
         self.assertIn("title", form.errors)
 
-    def test_form_with_invalid_image(self):
+    def test_form_validation_with_invalid_image(self):
         # create a non-image text file
         invalid_file = SimpleUploadedFile(
             "test.txt", b"file_content", content_type="text/plain"
