@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+{% load static %}
+
+{% block title %}
+    Wardrobe Wizard | AI Assitant
+{% endblock %}
+
+{% block content %}
+<div class="container md">
+    <h2 class="mt-5 mb-3">AI Assitant</h2>
+    <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            <textarea name="prompt" class="form-control" rows="3" placeholder="How can I help?"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Get Outift Reccomendations</button>
+    </form>
+
+    {% if reccomended_items %}
+        <hr>
+        <h3>Reccomended Clothing Items</h3>
+        <div class="row">
+            {% for item in reccomended_items %}
+                <div class="col-md-4">
+                    <div class="card mb-3">
+                        <img src="{{ item.image.url }}" class="card-img-top">
+                        <div class="card-body">
+                            <p class="card-text">{{ item.name }}</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
