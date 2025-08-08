@@ -1,11 +1,18 @@
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from django.contrib.auth.models import User
 from taggit.models import Tag
 from closet.models import ClothingItem
 from django.core.files.uploadedfile import SimpleUploadedFile
 import os
+import tempfile
+import shutil
 
 
+# temporary directory for media files during tests
+temp_media = tempfile.mkdtemp()
+
+
+@override_settings(MEDIA_ROOT=temp_media)
 class ClothingItemModelTest(TestCase):
     @classmethod
     def setUpTestData(cls):
@@ -19,9 +26,7 @@ class ClothingItemModelTest(TestCase):
         )
 
     def tearDown(self):
-        # clean up the test-created image after each test
-        if os.path.exists("media/test_image.jpg"):
-            os.remove("media/test_image.jpg")
+        shutil.rmtree(temp_media, ignore_errors=True)
         super().tearDown()
 
     def test_clothing_item_creation(self):

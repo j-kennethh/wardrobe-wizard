@@ -1,13 +1,20 @@
 import os
-from django.test import TestCase, Client
+from django.test import TestCase, Client, override_settings
 from django.urls import reverse
 from fitting_room.models import Look
 from closet.models import ClothingItem
 from django.contrib.auth.models import User
 from django.core.files.uploadedfile import SimpleUploadedFile
 import base64
+import tempfile
+import shutil
 
 
+# temporary directory for media files during tests
+temp_media = tempfile.mkdtemp()
+
+
+@override_settings(MEDIA_ROOT=temp_media)
 class FittingRoomViewsTest(TestCase):
     def setUp(self):
         self.client = Client()
@@ -91,19 +98,5 @@ class FittingRoomViewsTest(TestCase):
         self.assertEqual(Look.objects.count(), 1)  # Should not delete on GET
 
     def tearDown(self):
-        # clean up media files created during testing
-        looks = Look.objects.all()
-        items = ClothingItem.objects.all()
-
-        # delete associated image files if they exist
-        for look in looks:
-            if look.image:
-                if os.path.isfile(look.image.path):
-                    os.remove(look.image.path)
-        for item in items:
-            if item.image:
-                if os.path.isfile(item.image.path):
-                    os.remove(item.image.path)
-
-        # clear the test database
+        shutil.rmtree(temp_media, ignore_errors=True)
         super().tearDown()

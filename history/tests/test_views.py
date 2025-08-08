@@ -1,5 +1,5 @@
 from datetime import date
-from django.test import TestCase, Client
+from django.test import TestCase, Client, override_settings
 from django.urls import reverse
 from django.contrib.auth.models import User
 from history.models import OutfitHistory
@@ -7,8 +7,15 @@ from fitting_room.models import Look
 from history.forms import OutfitHistoryForm
 from django.utils import timezone
 import os
+import tempfile
+import shutil
 
 
+# temporary directory for media files during tests
+temp_media = tempfile.mkdtemp()
+
+
+@override_settings(MEDIA_ROOT=temp_media)
 class HistoryTestViews(TestCase):
     def setUp(self):
         # creating test user
@@ -127,14 +134,5 @@ class HistoryTestViews(TestCase):
         self.assertEqual(OutfitHistory.objects.count(), 1)  # the one from setUp
 
     def tearDown(self):
-        # clean up media files created during testing
-        looks = Look.objects.all()
-
-        # delete associated image files if they exist
-        for look in looks:
-            if look.image:
-                if os.path.isfile(look.image.path):
-                    os.remove(look.image.path)
-
-        # clear the test database
+        shutil.rmtree(temp_media, ignore_errors=True)
         super().tearDown()
