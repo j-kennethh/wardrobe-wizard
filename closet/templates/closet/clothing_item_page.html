@@ -5,6 +5,12 @@
 {% endblock %}
 
 {% block content %}
+    <div class="ps-2">
+
+    
+    <a href="{% url 'closet:list' %}" class="btn btn-secondary btn-lg mt-2 mb-2" >Back</a>
+    
+
     <section>
     <img 
         class="image"
@@ -15,7 +21,13 @@
     <h1>{{ item.title }}</h1>
     <p>{{ item.category }}</p>
     <p>{{ item.date }}</p>
+    <p>Tags:
+        {% for tag in item.tags.all %}
+            <span>{{ tag }}</span>{% if not forloop.last %}, {% endif %} 
+            <!--adds commas to after tag except for last-->
+        {% endfor %}
+    </p>
     </section>
-    
+    </div>
 {% endblock %}
 

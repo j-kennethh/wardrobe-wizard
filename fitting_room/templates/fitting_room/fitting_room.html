@@ -20,6 +20,8 @@
                 </div>
             </div>
         </div>
+
+        <!-- Buttons -->
         <div class="col-md-4">
             <div class="card">
                 <div class="card-body">
@@ -45,6 +47,8 @@
             <div class="card mt-3">
                 <div class="card-body">
                     <h5 class="card-title">Controls</h5>
+
+                    <!-- Controlling Forward and Back -->
                     <div class="btn-group" role="group">
                         <button type="button" class="btn btn-outline-secondary" id="bring-forward">
                             <i class="bi bi-arrow-up"></i> Bring Forward
@@ -58,10 +62,14 @@
                             Delete Item
                         </button>
                     </div>
+
+                    <!--Controlling rotation-->
                     <div class="mt-2">
                         <label for="rotation-slider" class="form-label">Rotation: <span id="rotation-value">0</span>°</label>
                         <input type="range" class="form-range" id="rotation-slider" min="0" max="360" value="0">
                     </div>
+
+                    <!--Controlling Size-->
                     <div class="mt-2">
                         <label for="scale-slider" class="form-label">Scale: <span id="scale-value">100</span>%</label>
                         <input type="range" class="form-range" id="scale-slider" min="50" max="200" value="100">
@@ -74,7 +82,6 @@
 </div>
 
 <!-- Clothing selector modal -->
-{% comment %} {% include 'fitting_room/includes/clothing_selector_modal.html' %} {% endcomment %}
 <div class="modal fade" id="clothingSelectorModal" tabindex="-1" aria-labelledby="clothingSelectorModalLabel" aria-model="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
