@@ -83,6 +83,31 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+                <!--Filter Feature-->
+                <form method="get" action="">
+                    <label for="tag">Filter by Tag:</label>
+                    <select name="tag" id="tag" onchange="this.form.submit()">
+                        <option value="">-- All Tags --</option>
+                        {% for tag_option in tags %}
+                            <option value="{{ tag_option.name }}" {% if tag_option.name == selected_tag %}selected{% endif %}>
+                                {{ tag_option.name }}
+                            </option>
+                        {% endfor %}
+                    </select>
+
+                    {% if selected_tag %}
+                        <a href="{% url 'fitting_room:fitting_room' %}" style="
+                            display: inline-block;
+                            padding: 6px 12px;
+                            margin-left: 10px;
+                            background-color: #f44336;
+                            color: white;
+                            text-decoration: none;
+                            border-radius: 4px;
+                            font-size: 14px;
+                        ">Clear filter</a>
+                    {% endif %}
+                </form>
                 <form id="clothing-selection-form">
                     {% csrf_token %}
                     <div class="row">

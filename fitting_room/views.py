@@ -11,6 +11,7 @@ from PIL import Image, ImageDraw
 import uuid
 import os
 from io import BytesIO
+from taggit.models import Tag
 
 
 @login_required
@@ -32,7 +33,17 @@ def fitting_room(request):
         form = LookForm()
 
     # Renders all clothing items in the selection modal
-    clothing_items = ClothingItem.objects.filter(user=request.user)
+
+    tag = request.GET.get("tag")
+    tags = Tag.objects.all()
+    if tag:
+        clothing_items = ClothingItem.objects.filter(
+            user=request.user, tags__name=tag
+        ).order_by("-date")
+    else:
+        clothing_items = ClothingItem.objects.filter(user=request.user).order_by(
+            "-date"
+        )
 
     return render(
         request,
@@ -40,6 +51,9 @@ def fitting_room(request):
         {
             "form": form,
             "clothing_items": clothing_items,
+            "user": request.user,
+            "selected_tag": tag,
+            "tags": tags,
         },
     )
 
