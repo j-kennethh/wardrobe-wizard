@@ -2,35 +2,37 @@
 {% load static %}
 
 {% block title %}
-    Wardrobe Wizard | AI Assitant
+    Wardrobe Wizard | AI Assistant
 {% endblock %}
 
 {% block content %}
 <div class="container md">
-    <h2 class="mt-5 mb-3">AI Assitant</h2>
+    <h2 class="mt-5 mb-3">AI Assistant</h2>
     <form method="post">
         {% csrf_token %}
         <div class="mb-3">
             <textarea name="prompt" class="form-control" rows="3" placeholder="How can I help?"></textarea>
         </div>
-        <button type="submit" class="btn btn-primary">Get Outift Reccomendations</button>
+        <button type="submit" class="btn btn-primary">Get Reccomendations</button>
     </form>
 
-    {% if reccomended_items %}
-        <hr>
-        <h3>Reccomended Clothing Items</h3>
-        <div class="row">
-            {% for item in reccomended_items %}
-                <div class="col-md-4">
-                    <div class="card mb-3">
-                        <img src="{{ item.image.url }}" class="card-img-top">
-                        <div class="card-body">
-                            <p class="card-text">{{ item.name }}</p>
+    {% if response_text %}
+    <hr>
+        {% if reccomended_items %}
+            <h3>Reccomended Items:</h3>
+            <div class="row">
+                {% for item in reccomended_items %}
+                    <div class="col-md-4">
+                        <div class="card mb-3">
+                            <img src="{{ item.image.url }}" class="card-img-top" alt="{{ item.title }}">
+                            <div class="card-body">
+                                <p class="card-text">{{ item.title }}</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-            {% endfor %}
-        </div>
+                {% endfor %}
+            </div>
+        {% endif %}
     {% endif %}
 </div>
 {% endblock %}
