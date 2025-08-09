@@ -36,7 +36,10 @@ def fitting_room(request):
 
     # Render all clothing items in the selection modal by tag
     tag = request.GET.get("tag")
-    tags = Tag.objects.all()
+    # get tags only from the logged-in user's clothing items
+    tags = Tag.objects.filter(
+        clothingitem__user=request.user
+    ).distinct()  # ensures no duplicate tags
     if tag:
         clothing_items = ClothingItem.objects.filter(
             user=request.user, tags__name=tag
