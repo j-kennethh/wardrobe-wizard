@@ -1,10 +1,10 @@
 {% load static %}
 
-<div class="row">
+<div class="row row-cols-2">
     {% for item in clothing_items %}
     <div class="col-md-3 mb-3">
         <div class="card h-100">
-            <img src="{{ item.image.url }}" class="card-img-top" alt="{{ item.title }}" style="height: 180px; object-fit: cover;">
+            <img src="{{ item.image.url }}" class="card-img-top" alt="{{ item.title }}" style="height: 180px; object-fit: contain;">
             <div class="card-body">
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" name="items" value="{{ item.id }}" id="item-{{ item.id }}">
