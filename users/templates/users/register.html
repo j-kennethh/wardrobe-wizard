@@ -27,7 +27,7 @@
                     <div class="mb-3">
                         <label for="{{ form.password1.id_for_label }}" class="form-label">Password</label>
                         <input type="password" class="form-control" id="{{ form.password1.id_for_label }}" name="{{ form.password1.html_name }}" required>
-                        <div class="form-text">At least 8 characters</div>
+                        <div class="form-text">Password must contain least 8 characters (letters and numbers), and not common (e.g. 1234)</div>
                     </div>
                     <div class="mb-3">
                         <label for="{{ form.password2.id_for_label }}" class="form-label">Confirm Password</label>
