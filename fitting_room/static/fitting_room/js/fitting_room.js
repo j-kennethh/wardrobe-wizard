@@ -41,6 +41,7 @@ document.addEventListener('DOMContentLoaded', function () {
         e.preventDefault();
         console.log("Add selected items button clicked");
 
+        // check all checkboxes
         const checkboxes = document.querySelectorAll('#clothing-selection-form input[name="items"]:checked');
         console.log("Found checkboxes:", checkboxes.length);
 
@@ -49,6 +50,7 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
+        // identify each checkbox clicked
         checkboxes.forEach(checkbox => {
             try {
                 const itemId = checkbox.value;

@@ -32,8 +32,7 @@ def fitting_room(request):
     else:
         form = LookForm()
 
-    # Renders all clothing items in the selection modal
-
+    # Render all clothing items in the selection modal by tag
     tag = request.GET.get("tag")
     tags = Tag.objects.all()
     if tag:
