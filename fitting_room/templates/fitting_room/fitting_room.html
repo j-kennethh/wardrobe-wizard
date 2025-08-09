@@ -91,9 +91,9 @@
             </div>
             <div class="modal-body">
                 <!--Filter Feature-->
-                <form method="get" action="">
-                    <label for="tag">Filter by Tag:</label>
-                    <select name="tag" id="tag" onchange="this.form.submit()">
+                <div class="mb-3">
+                    <label for="tag" class="form-label">Filter by Tag:</label>
+                    <select name="tag" id="tag" class="form-select">
                         <option value="">-- All Tags --</option>
                         {% for tag_option in tags %}
                             <option value="{{ tag_option.name }}" {% if tag_option.name == selected_tag %}selected{% endif %}>
@@ -101,23 +101,10 @@
                             </option>
                         {% endfor %}
                     </select>
+                </div>
 
-                    {% if selected_tag %}
-                        <a href="{% url 'fitting_room:fitting_room' %}" style="
-                            display: inline-block;
-                            padding: 6px 12px;
-                            margin-left: 10px;
-                            background-color: #f44336;
-                            color: white;
-                            text-decoration: none;
-                            border-radius: 4px;
-                            font-size: 14px;
-                        ">Clear filter</a>
-                    {% endif %}
-                </form>
-                <!--Clothing Selector Form-->
-                <form id="clothing-selection-form">
-                    {% csrf_token %}
+                <!--Clothing Items Container-->
+                <div id="clothing-items-container">
                     <div class="row">
                         {% for item in clothing_items %}
                         <div class="col-md-3 mb-3">
@@ -135,7 +122,7 @@
                         </div>
                         {% endfor %}
                     </div>
-                </form>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

@@ -12,6 +12,8 @@ import uuid
 import os
 from io import BytesIO
 from taggit.models import Tag
+from django.http import JsonResponse
+from django.template.loader import render_to_string
 
 
 @login_required
@@ -55,6 +57,33 @@ def fitting_room(request):
             "tags": tags,
         },
     )
+
+
+@login_required
+def filter_clothing_items(request):
+    try:
+        tag = request.GET.get("tag", "")
+
+        if tag:
+            clothing_items = (
+                ClothingItem.objects.filter(user=request.user, tags__name=tag)
+                .order_by("-date")
+                .distinct()
+            )
+        else:
+            clothing_items = ClothingItem.objects.filter(user=request.user).order_by(
+                "-date"
+            )
+
+        html = render_to_string(
+            "fitting_room/_clothing_items_partial.html",
+            {"clothing_items": clothing_items},
+        )
+
+        return JsonResponse({"html": html})
+
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=500)
 
 
 @login_required

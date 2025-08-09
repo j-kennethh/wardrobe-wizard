@@ -36,13 +36,57 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+    // Tag filtering with Fetch API
+    document.getElementById('tag').addEventListener('change', function () {
+        const tag = this.value;
+        const url = `/fitting_room/filter-items/?tag=${encodeURIComponent(tag)}`;
+
+        // Show loading indicator
+        const container = document.getElementById('clothing-items-container');
+        container.innerHTML = '<div class="text-center py-4"><div class="spinner-border text-primary" role="status"><span class="visually-hidden">Loading...</span></div></div>';
+
+        fetch(url, {
+            headers: {
+                'Accept': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest'  // Helps Django identify AJAX requests
+            }
+        })
+            .then(response => {
+                if (!response.ok) {
+                    // return response.json().then(err => { throw err; });
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                // if (data.error) {
+                //     throw new Error(data.error);
+                // }
+                container.innerHTML = data.html;
+                // Reattach event listeners to all checkboxes
+                const checkboxes = container.querySelectorAll('input[type="checkbox"][name="items"]');
+                checkboxes.forEach(checkbox => {
+                    // Remove any existing listeners to prevent duplicates
+                    checkbox.replaceWith(checkbox.cloneNode(true));
+                });
+            })
+            .catch(error => {
+                console.error('Error filtering items:', error);
+                container.innerHTML = `
+                <div class="alert alert-danger">
+                    Error loading items: ${error.message}
+                </div>
+            `;
+            });
+    });
+
     //handle clothing selection from modal
     document.getElementById('add-selected-items').addEventListener('click', function (e) {
         e.preventDefault();
         console.log("Add selected items button clicked");
 
-        // check all checkboxes
-        const checkboxes = document.querySelectorAll('#clothing-selection-form input[name="items"]:checked');
+        // Get all checked checkboxes from the container (not form)
+        const checkboxes = document.querySelectorAll('#clothing-items-container input[name="items"]:checked');
         console.log("Found checkboxes:", checkboxes.length);
 
         if (checkboxes.length === 0) {
