@@ -12,16 +12,57 @@
     <!--Canvas-->
     <div class="row">
         <div class="col-md-8">
-            <div class="card">
-                <div class="card-body">
+            <div class="card mb-3">
+                <div class="card-body md-3">
                     <div id="fitting-room-canvas" style="max-width: 100%; height: auto; aspect-ratio: 1/1; object-fit: contain; background-color: #f8f9fa; position: relative; overflow: hidden; border: 1px #ccc; touch-action: none;">
                         <!-- Items will be placed here dynamically -->
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- Buttons -->
         <div class="col-md-4">
-            <div class="card">
+            
+            
+            <!--Controls-->
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Controls</h5>
+                    
+                    {% comment %} <!-- Controlling Forward and Back -->
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-outline-secondary" id="bring-forward">
+                            <i class="bi bi-arrow-up"></i> Bring Forward
+                        </button>
+                        <button type="button" class="btn btn-outline-secondary" id="send-backward">
+                            <i class="bi bi-arrow-down"></i> Send Backward
+                        </button>
+                    </div> {% endcomment %}
+                                        
+                    <!--Controlling rotation-->
+                    <div class="mt-2">
+                        <label for="rotation-slider" class="form-label">Rotation: <span id="rotation-value">0</span>°</label>
+                        <input type="range" class="form-range" id="rotation-slider" min="0" max="360" value="0">
+                    </div>
+
+                    <!--Controlling Size-->
+                    <div class="mt-2">
+                        <label for="scale-slider" class="form-label">Size: <span id="scale-value">100</span>%</label>
+                        <input type="range" class="form-range" id="scale-slider" min="50" max="200" value="100">
+                    </div>
+                    
+                    <!--Delete Button-->
+                    <div class="mt-2">
+                        <button type="button" class="btn btn-primary btn-danger" id="delete-item">
+                            Delete Item
+                        </button>
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="card mb-3">
                 <div class="card-body">
                     <h5 class="card-title">Save Your Look</h5>
                     <!--Create the look here-->
@@ -29,50 +70,23 @@
                         {% csrf_token %}
                         {{ form.as_p }}  <!--Has hidden input screenshot_data-->
                         <input type="hidden" name="screenshot_data" id="screenshot-data">
-                        
-                        <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#clothingSelectorModal">
+                        <div class="mb-0.5">
+                            <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#clothingSelectorModal">
                             Select Clothing Items
-                        </button>
+                            </button>
+                        </div>
                         
                         <button type="submit" id="submit-to-lookbook" class="btn btn-success">Save to Lookbook</button>
+                        
                     </form>
                 </div>
             </div>
-            
-            <!--Controls-->
-            <div class="card mt-3">
-                <div class="card-body">
-                    <h5 class="card-title">Controls</h5>
-                    <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-outline-secondary" id="bring-forward">
-                            <i class="bi bi-arrow-up"></i> Bring Forward
-                        </button>
-                        <button type="button" class="btn btn-outline-secondary" id="send-backward">
-                            <i class="bi bi-arrow-down"></i> Send Backward
-                        </button>
-                    </div>
-                    <div class="mt-2">
-                        <button type="button" class="btn btn-primary btn-danger" id="delete-item">
-                            Delete Item
-                        </button>
-                    </div>
-                    <div class="mt-2">
-                        <label for="rotation-slider" class="form-label">Rotation: <span id="rotation-value">0</span>°</label>
-                        <input type="range" class="form-range" id="rotation-slider" min="0" max="360" value="0">
-                    </div>
-                    <div class="mt-2">
-                        <label for="scale-slider" class="form-label">Scale: <span id="scale-value">100</span>%</label>
-                        <input type="range" class="form-range" id="scale-slider" min="50" max="200" value="100">
-                    </div>
-                    
-                </div>
-            </div>
+
         </div>
     </div>
 </div>
 
 <!-- Clothing selector modal -->
-{% comment %} {% include 'fitting_room/includes/clothing_selector_modal.html' %} {% endcomment %}
 <div class="modal fade" id="clothingSelectorModal" tabindex="-1" aria-labelledby="clothingSelectorModalLabel" aria-model="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -81,9 +95,22 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="clothing-selection-form">
-                    {% csrf_token %}
-                    <div class="row">
+                <!--Filter Feature-->
+                <div class="mb-3">
+                    <label for="tag" class="form-label">Filter by tag:</label>
+                    <select name="tag" id="tag" class="form-select">
+                        <option value="">-- All Tags --</option>
+                        {% for tag_option in tags %}
+                            <option value="{{ tag_option.name }}" {% if tag_option.name == selected_tag %}selected{% endif %}>
+                                {{ tag_option.name }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <!--Clothing Items Container-->
+                <div id="clothing-items-container">
+                    <div class="row row-cols-2">
                         {% for item in clothing_items %}
                         <div class="col-md-3 mb-3">
                             <div class="card h-100">
@@ -100,7 +127,7 @@
                         </div>
                         {% endfor %}
                     </div>
-                </form>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

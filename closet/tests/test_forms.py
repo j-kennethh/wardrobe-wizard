@@ -1,12 +1,20 @@
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from django.core.files.uploadedfile import SimpleUploadedFile
 from closet.forms import CreateClothingItem
 from closet.models import ClothingItem
 from django.contrib.auth.models import User
 from taggit.models import Tag
 import os
+import tempfile
+import shutil
+from PIL import Image
+import io
+
+# temporary directory for media files during tests
+temp_media = tempfile.mkdtemp()
 
 
+@override_settings(MEDIA_ROOT=temp_media)
 class CreateClothingItemFormTest(TestCase):
     def setUp(self):
         # create user
@@ -76,7 +84,7 @@ class CreateClothingItemFormTest(TestCase):
         self.assertIn("title", form.errors)
 
     def test_form_validation_with_invalid_image(self):
-        # create a non-image text file
+        # create a non-image text file to test the default ImageField validation
         invalid_file = SimpleUploadedFile(
             "test.txt", b"file_content", content_type="text/plain"
         )
@@ -87,9 +95,50 @@ class CreateClothingItemFormTest(TestCase):
 
         self.assertFalse(form.is_valid())
         self.assertIn("image", form.errors)
+        self.assertIn(
+            "Upload a valid image. The file you uploaded was either not an image or a corrupted image.",
+            str(form.errors["image"]),
+        )
+
+    def test_file_size_validation(self):
+        # test our form's custom file size validation (<5mb) with a local image
+
+        # note: require tester to source for themselves a large image file that is >5mb, store it on their local device, and include the path below here:
+        large_image_path = (
+            r"C:\Users\Phu Xien\Desktop\pictures_for_testing\Large_Test_Image_14mb.jpg"
+        )
+
+        # verify the test image  exists and is large enough
+        self.assertTrue(
+            os.path.exists(large_image_path),
+            f"Large test image not found at {large_image_path}",
+        )
+
+        file_size = os.path.getsize(large_image_path)
+        self.assertGreater(
+            file_size,
+            5 * 1024 * 1024,
+        )
+
+        # read file content
+        with open(large_image_path, "rb") as f:
+            large_image_content = f.read()
+
+        # set up large file as variable
+        large_file = SimpleUploadedFile(
+            name=os.path.basename(large_image_path),
+            content=large_image_content,
+            content_type="image/jpeg",
+        )
+
+        form_data = {"title": "Large File Test", "tags": "test"}
+        file_data = {"image": large_file}
+        form = CreateClothingItem(form_data, file_data)
+
+        self.assertFalse(form.is_valid())
+        self.assertIn("image", form.errors)
+        self.assertIn("File size too large", str(form.errors))
 
     def tearDown(self):
-        # clean up the test-created image after each test
-        if os.path.exists("media/test_image.jpg"):
-            os.remove("media/test_image.jpg")
+        shutil.rmtree(temp_media, ignore_errors=True)
         super().tearDown()

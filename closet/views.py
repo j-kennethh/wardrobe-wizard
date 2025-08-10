@@ -12,7 +12,10 @@ from django.core.files.base import ContentFile
 @login_required
 def clothing_items_list(request):
     tag = request.GET.get("tag")
-    tags = Tag.objects.all()
+    # get tags only from the logged-in user's clothing items
+    tags = Tag.objects.filter(
+        clothingitem__user=request.user
+    ).distinct()  # ensures no duplicate tags
     if tag:
         items = ClothingItem.objects.filter(user=request.user, tags__name=tag).order_by(
             "-date"

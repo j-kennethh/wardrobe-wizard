@@ -59,11 +59,11 @@
                 </ul>
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'users:register' %}">Register</a>
+                        <a class="nav-link" href="{% url 'users:register' %}">Register/Log In</a>
                     </li>
-                    <li class="nav-item">
+                    {% comment %} <li class="nav-item">
                         <a class="nav-link" href="{% url 'users:login' %}">Log In</a>
-                    </li>
+                    </li> {% endcomment %}
                 </ul>
                     {% endif %}
             </div>

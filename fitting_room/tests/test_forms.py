@@ -1,11 +1,18 @@
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.contrib.auth.models import User
 from fitting_room.forms import LookForm
 from fitting_room.models import Look
 import os
+import tempfile
+import shutil
 
 
+# temporary directory for media files during tests
+temp_media = tempfile.mkdtemp()
+
+
+@override_settings(MEDIA_ROOT=temp_media)
 class LookFormTest(TestCase):
     def setUp(self):
         self.user = User.objects.create_user(username="testuser", password="12345")
@@ -53,10 +60,5 @@ class LookFormTest(TestCase):
         self.assertTrue(form.is_valid())
 
     def tearDown(self):
-        # clean up all Look objects and their associated images
-        for look in Look.objects.all():
-            if look.image:
-                if os.path.isfile(look.image.path):
-                    os.remove(look.image.path)
-        # clear the database
-        Look.objects.all().delete()
+        shutil.rmtree(temp_media, ignore_errors=True)
+        super().tearDown()
