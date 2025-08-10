@@ -37,13 +37,16 @@
                         <a class="nav-link {% if request.path == '/closet/new_item/' %}active{% endif %}" href="{% url 'closet:new_item' %}">New Item</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {% if request.path == '/fitting-room/' %}active{% endif %}" href="{% url 'fitting_room:fitting_room' %}">Virtual Fitting Room</a>
+                        <a class="nav-link {% if request.path == '/fitting_room/' %}active{% endif %}" href="{% url 'fitting_room:fitting_room' %}">Fitting Room</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {% if request.path == '/fitting-room/lookbook/' %}active{% endif %}" href="{% url 'fitting_room:lookbook' %}">Lookbook</a>
+                        <a class="nav-link {% if request.path == '/fitting_room/lookbook/' %}active{% endif %}" href="{% url 'fitting_room:lookbook' %}">Lookbook</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {% if request.path == '/history/' %}active{% endif %}" href="{% url 'history:history' %}">Outfit History</a>
+                        <a class="nav-link {% if request.path == '/history/' %}active{% endif %}" href="{% url 'history:history' %}">History</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.path == '/assistant/' %}active{% endif %}" href="{% url 'assistant:assistant' %}">AI Assistant</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav ms-auto">
