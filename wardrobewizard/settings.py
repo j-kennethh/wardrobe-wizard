@@ -30,11 +30,11 @@ DEBUG = True
 ALLOWED_HOSTS = [
     "localhost",
     "127.0.0.1",
-    "rnlut-2400-79e0-9070-39fa-4c9d-f027-ae09-cce2.a.free.pinggy.link",
+    "rnozb-49-245-81-72.a.free.pinggy.link",
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://rnlut-2400-79e0-9070-39fa-4c9d-f027-ae09-cce2.a.free.pinggy.link",
+    "https://rnozb-49-245-81-72.a.free.pinggy.link",
 ]
 
 # Application definition
