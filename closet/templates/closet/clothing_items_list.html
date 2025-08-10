@@ -15,7 +15,7 @@
         <!--Filter Feature-->
         <form method="get" action="">
             <label for="tag">Filter by Tag:</label>
-            <select name="tag" id="tag" onchange="this.form.submit()">
+            <select class="mb-3" name="tag" id="tag" onchange="this.form.submit()">
                 <option value="">-- All Tags --</option>
                 {% for tag_option in tags %}
                     <option value="{{ tag_option.name }}" {% if tag_option.name == selected_tag %}selected{% endif %}>
