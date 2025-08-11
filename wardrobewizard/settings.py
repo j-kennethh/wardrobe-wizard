@@ -41,6 +41,7 @@ ALLOWED_HOSTS = [
 
 CSRF_TRUSTED_ORIGINS = [
     "https://rnozb-49-245-81-72.a.free.pinggy.link",
+    "https://wardrobe-wizard-production.up.railway.app",
 ]
 
 # Application definition
@@ -167,4 +168,5 @@ LOGIN_URL = "/users/register/"
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
 
