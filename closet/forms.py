@@ -36,13 +36,21 @@ class CreateClothingItem(forms.ModelForm):
         }
 
     def clean_image(self):
-        image = self.cleaned_data.get("image", False)
-        if image:
-            # Only add file size validation (5MB limit)
+        image = self.cleaned_data.get("image")
+        # handle cases where no image is uploaded (empty string or None)
+        if not image or image == "":
+            return None
+
+        # only proceed with validation if an actual file was uploaded
+        elif hasattr(image, "size"):  # Check if it's a file object
+            # File size validation (5MB limit)
             max_size = 5 * 1024 * 1024  # 5MB
             if image.size > max_size:
                 raise forms.ValidationError(
                     f"File size too large. Maximum size is {filesizeformat(max_size)}. "
                     f"Your file is {filesizeformat(image.size)}"
                 )
-        return image
+            return image
+
+        else:
+            return image
