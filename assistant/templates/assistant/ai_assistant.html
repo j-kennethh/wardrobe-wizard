@@ -20,10 +20,10 @@
     <hr>
         {% if reccomended_items %}
             <h3>Reccomended Items:</h3>
-            <div class="row">
+            <div class="row row-cols-2">
                 {% for item in reccomended_items %}
-                    <div class="col-md-4">
-                        <div class="card mb-3">
+                    <div class="col-md-3 mb-3">
+                        <div class="card text-center mb-3 testcard h-100">
                             <img src="{{ item.image.url }}" class="card-img-top" alt="{{ item.title }}">
                             <div class="card-body">
                                 <p class="card-text">{{ item.title }}</p>
