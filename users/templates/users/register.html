@@ -33,10 +33,10 @@
                         <label for="{{ form.password2.id_for_label }}" class="form-label">Confirm Password</label>
                         <input type="password" class="form-control" id="{{ form.password2.id_for_label }}" name="{{ form.password2.html_name }}" required>
                     </div>
-                    <button type="submit" class="btn btn-primary w-100">Register</button>
+                    <button type="submit" class="btn btn-primary w-100 mb-3">Register</button>
                 </form>
-                <div class="mb3">
-                        <p>Have an account already? Log in <a href="{% url 'users:login' %}">here.</a></p>
+                <div class="mb-3">
+                    <p>Have an account already? Log in <a href="{% url 'users:login' %}">here.</a></p>
                 </div>
             </div>
         </div>
