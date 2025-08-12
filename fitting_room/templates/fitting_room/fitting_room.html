@@ -6,8 +6,8 @@
 {% endblock %}
 
 {% block content %}
-<div class="container mt-4">
-    <h2 class="mt-2 mb-2">Virtual Fitting Room</h2>
+<div class="container-md">
+    <h2 class="mt-5 mb-3">Virtual Fitting Room</h2>
     
     <!--Canvas-->
     <div class="row">
@@ -54,7 +54,7 @@
                     
                     <!--Delete Button-->
                     <div class="mt-2">
-                        <button type="button" class="btn btn-primary btn-danger" id="delete-item">
+                        <button type="button" class="btn btn-danger" id="delete-item">
                             Delete Item
                         </button>
                     </div>
@@ -71,12 +71,12 @@
                         {{ form.as_p }}  <!--Has hidden input screenshot_data-->
                         <input type="hidden" name="screenshot_data" id="screenshot-data">
                         <div class="mb-0.5">
-                            <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#clothingSelectorModal">
+                            <button type="button" class="btn btn-control mb-3" data-bs-toggle="modal" data-bs-target="#clothingSelectorModal">
                             Select Clothing Items
                             </button>
                         </div>
                         
-                        <button type="submit" id="submit-to-lookbook" class="btn btn-success">Save to Lookbook</button>
+                        <button type="submit" id="submit-to-lookbook" class="btn btn-control">Save to Lookbook</button>
                         
                     </form>
                 </div>
