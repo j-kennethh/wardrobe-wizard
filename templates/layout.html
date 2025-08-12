@@ -43,7 +43,7 @@
                         <a class="nav-link {% if request.path == '/fitting_room/lookbook/' %}active{% endif %}" href="{% url 'fitting_room:lookbook' %}">Lookbook</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {% if request.path == '/history/' %}active{% endif %}" href="{% url 'history:history' %}">History</a>
+                        <a class="nav-link {% if request.path == '/history/' or request.path == '/history/log/' %}active{% endif %}" href="{% url 'history:history' %}">History</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {% if request.path == '/assistant/' %}active{% endif %}" href="{% url 'assistant:assistant' %}">AI Assistant</a>

@@ -15,19 +15,14 @@
 
 .addbtn {
     background-color: #A57A5A;
+    color: white;
 }
 
-.row .col-md-4 .card .card-body .btn {
+.btn-control {
     background-color: #A57A5A;
     color: white;
     border: #A57A5A;
 }
-
-.row .col-md-4 .card .card-body .btn-danger {
-    background-color: red;
-    color: white;
-}
-
 
 html body {
     background-color: #fff0db;
