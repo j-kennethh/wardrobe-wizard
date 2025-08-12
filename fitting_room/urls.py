@@ -7,4 +7,5 @@ urlpatterns = [
     path("", views.fitting_room, name="fitting_room"),
     path("lookbook/", views.lookbook, name="lookbook"),
     path("lookbook/delete/<int:look_id>/", views.delete_look, name="delete_look"),
+    path("filter-items/", views.filter_clothing_items, name="filter_clothing_items"),
 ]

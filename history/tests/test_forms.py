@@ -1,6 +1,6 @@
 import os
 from django import forms
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from django.contrib.auth import get_user_model
 from django.core.files.uploadedfile import SimpleUploadedFile
 from fitting_room.models import Look
@@ -9,8 +9,15 @@ from history.models import OutfitHistory
 from django.contrib.auth.models import User
 from datetime import date
 import uuid
+import tempfile
+import shutil
 
 
+# temporary directory for media files during tests
+temp_media = tempfile.mkdtemp()
+
+
+@override_settings(MEDIA_ROOT=temp_media)
 class OutfitHistoryFormTest(TestCase):
     def setUp(self):
         # create user
@@ -126,14 +133,5 @@ class OutfitHistoryFormTest(TestCase):
         self.assertNotIn(other_look, form.fields["look"].queryset.all())
 
     def tearDown(self):
-        # clean up media files created during testing
-        looks = Look.objects.all()
-
-        # delete associated image files if they exist
-        for look in looks:
-            if look.image:
-                if os.path.isfile(look.image.path):
-                    os.remove(look.image.path)
-
-        # clear the test database
+        shutil.rmtree(temp_media, ignore_errors=True)
         super().tearDown()

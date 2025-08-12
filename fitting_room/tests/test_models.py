@@ -41,19 +41,6 @@ class LookModelTest(TestCase):
     def test_str_method(self):
         self.assertEqual(str(self.look), f"{self.user.username}'s Look: Test Look")
 
-    # def tearDown(self):
-    #     # clean up media files created during testing
-    #     looks = Look.objects.all()
-
-    #     # delete associated image files if they exist
-    #     for look in looks:
-    #         if look.image:
-    #             if os.path.isfile(look.image.path):
-    #                 os.remove(look.image.path)
-
-    #     # clear the test database
-    #     super().tearDown()
-
     def tearDown(self):
         shutil.rmtree(temp_media, ignore_errors=True)
         super().tearDown()
